@@ -16,9 +16,7 @@ class PedidoRoutes implements IpedidoRoutes {
         this.BASE_URL = BASE_URL;
     }
 
-    buildRoutes() {
-        console.log("Building pedido routes");
-
+    buildRoutes() {        
         this.express.post(
             `${this.BASE_URL}/pedido`,
             this.pedidoController.createPedido.bind(this.pedidoController)

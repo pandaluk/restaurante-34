@@ -21,19 +21,19 @@ class ClienteRoutes implements IClienteRoutes {
     buildRoutes() {
         this.express
             .get(
-                "/cliente/:cpf/",
+                `${this.BASE_URL}/cliente/:cpf/`,
                 this.clienteController.getClienteByCpf.bind(
                     this.clienteController
                 )
             )
             .get(
-                "/cliente/id/:id/",
+                `${this.BASE_URL}/cliente/id/:id/`,
                 this.clienteController.getClienteById.bind(
                     this.clienteController
                 )
             )
             .post(
-                "/cliente",
+                `${this.BASE_URL}/cliente`,
                 this.postPayloadValidator.validateSchema.bind(
                     this.postPayloadValidator
                 ),

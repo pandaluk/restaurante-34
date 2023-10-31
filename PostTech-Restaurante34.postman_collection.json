@@ -25,12 +25,14 @@
 							"raw": "{\n    \"id\": 7,\n    \"nome\": \"Milton Abdon\",\n    \"cpf\": \"1231231234\",\n    \"email\": \"milton.teste@gmail.com\",\n    \"usuarioId\": 7\n}"
 						},
 						"url": {
-							"raw": "localhost:3001/cliente/",
+							"raw": "http://localhost:3001/api/cliente/",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3001",
 							"path": [
+								"api",
 								"cliente",
 								""
 							]
@@ -56,12 +58,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3001/cliente/1231231234",
+							"raw": "http://localhost:3001/api/cliente/1231231234",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3001",
 							"path": [
+								"api",
 								"cliente",
 								"1231231234"
 							]

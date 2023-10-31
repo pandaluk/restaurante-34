@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id      Int      @id @default(autoincrement())
+  usuarioId Int @unique
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  pedido Pedido[]
+  nome    String?
+  email   String   @unique
+  cpf     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+model TipoAcesso{
+  id Int @id @default(autoincrement())
+  enumerador String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Usuario{
+  id Int @id @default(autoincrement()) 
+  tipoAcesso String
+  login String @unique
+  senha String
+  funcionario Funcionario?
+  cliente Cliente?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Funcionario{
+  id Int @id @default(autoincrement()) 
+  usuarioId Int @unique
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  nome String
+  cargo String
+  admin String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Pedido{
+  id Int @id @default(autoincrement())
+  clienteId Int 
+  cliente Cliente @relation(fields: [clienteId], references: [id])
+  pagamento Pagamento[]
+  statusPedidoId Int
+  statusPedido StatusPedido @relation(fields: [statusPedidoId], references: [id])
+  ProdutosDoPedido ProdutosDoPedido[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model StatusPedido{
+  id Int @id @default(autoincrement())
+  pedido Pedido[]
+  enumerador String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model StatusPagamento{
+  id Int @id @default(autoincrement())
+  pagamento Pagamento[]
+  enumerador String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+model Cardapio{
+  id Int @id @default(autoincrement())
+  produtosDoCardapio ProdutosDoCardapio[]
+  descricao String 
+  ativo Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model ProdutosDoPedido{
+  @@id([ produtoId, pedidoId, id])
+  id Int @default(autoincrement())
+  produtoId Int
+  produto Produto @relation(fields: [produtoId], references: [id])
+  pedidoId Int
+  pedido Pedido @relation(fields: [pedidoId], references: [id])
+  quantidade Int
+  valor Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Produto{
+  id Int @id @default(autoincrement())
+  produtosDoCardapio ProdutosDoCardapio[]
+  ProdutosDoPedido ProdutosDoPedido[]
+  categoriaProdutoId Int
+  categoriaProduto CategoriaProduto @relation(fields: [categoriaProdutoId], references: [id])
+  descricao  String
+  preco Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Pagamento{
+  id Int @id @default(autoincrement())
+  statusPagamentoId Int
+  statusPagamento StatusPagamento @relation(fields: [statusPagamentoId], references: [id])
+  pedidoId Int
+  pedido Pedido @relation(fields: [pedidoId], references: [id])
+  tipo String
+  data DateTime
+  valor Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model CategoriaProduto{
+  id Int @id @default(autoincrement())
+  produto Produto[]
+  enumerador String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model ProdutosDoCardapio {
+  @@id([ produtoId, cardapioId, id])
+  id Int @default(autoincrement())
+  produto Produto @relation(fields: [produtoId], references: [id])
+  produtoId Int 
+  cardapio Cardapio @relation(fields: [cardapioId], references: [id])
+  cardapioId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}

@@ -1,34 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+```markdown
+# Tech Challenge SOAT4 - Grupo 34
 
-## Getting Started
+Este é o repositório de Trabalho de Tech Challenge da Pós Graduação em Software Architeture (SOAT4), que descreve o desenvolvimento de uma API Backend para registro de pedidos em um restaurante fictício chamado Restaurante-34. Este projeto inclui uma aplicação backend Node.js e um banco de dados PostgreSQL, gerenciados com Docker Compose e segue os padrões da Arquitetura Hexagonal.
 
-First, run the development server:
+## Pré-requisitos
+
+Antes de iniciar, certifique-se de ter os seguintes pré-requisitos instalados em seu ambiente de desenvolvimento:
+
+- Node.Js 18
+- Docker
+
+## Configuração
+
+1. Clone este repositório:
+
+   ```bash
+   git clone https://github.com/pandaluk/restaurante-34
+   cd restaurante-34-tcc
+   ```
+
+2. Configure as variáveis de ambiente necessárias. Copie o arquivo `.env.example` para `.env` e ajuste as variáveis de acordo com suas configurações.
+
+3. Inicie os contêineres do Docker Compose:
+
+   ```bash
+   docker-compose up
+   ```
+
+## Executando a Aplicação
+
+Com os contêineres em execução, você pode acessar a aplicação em seu navegador em [http://localhost:3001](http://localhost:3000). A API estará disponível em [http://localhost:3001/api](http://localhost:3000/api).
+
+## Parando a Aplicação
+
+Para parar a aplicação e desligar os contêineres:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+docker-compose down
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contribuição
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Sinta-se à vontade para contribuir para este projeto. Você pode abrir issues, enviar solicitações de pull ou reportar problemas.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
+## Link Documentação
 
-## Learn More
+ A documentação está disponível em [Miro](https://miro.com/app/board/uXjVMiRkUFo=/#tpicker-content).
 
-To learn more about Next.js, take a look at the following resources:
+---
+## Observações:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* <strong>Collection da Pasta</strong> está disponível na raíz do repositório no arquivo PostTech-Restaurante34.postman_collection.json
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

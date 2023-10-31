@@ -46,7 +46,7 @@ Sinta-se à vontade para contribuir para este projeto. Você pode abrir issues, 
 ---
 ## Link Documentação
 
- A documentação está disponível em [Miro](https://miro.com/app/board/uXjVMiRkUFo=/#tpicker-content).
+ A documentação está disponível em [Miro](https://miro.com/app/board/uXjVMiRkUFo=/?share_link_id=536639470110).
 
 ---
 ## Observações:

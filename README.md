@@ -1,4 +1,4 @@
-```markdown
+
 # Tech Challenge SOAT4 - Grupo 34
 
 Este é o repositório de Trabalho de Tech Challenge da Pós Graduação em Software Architeture (SOAT4), que descreve o desenvolvimento de uma API Backend para registro de pedidos em um restaurante fictício chamado Restaurante-34. Este projeto inclui uma aplicação backend Node.js e um banco de dados PostgreSQL, gerenciados com Docker Compose e segue os padrões da Arquitetura Hexagonal.

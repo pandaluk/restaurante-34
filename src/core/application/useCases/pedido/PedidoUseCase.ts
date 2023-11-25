@@ -1,6 +1,6 @@
-import { IPedidoRepository } from "@/core/ports/IPedidoRepository";
+import { IPedidoRepository } from "../../../../core/ports/IPedidoRepository";
 import { IPedidoUseCase } from "./IPedidoUseCase";
-import { IProdutosDoPedidoRepository } from "@/core/ports/IProdutosDoPedidoRepository";
+import { IProdutosDoPedidoRepository } from "../../../../core/ports/IProdutosDoPedidoRepository";
 import { Pedido, Produto } from "@prisma/client";
 
 

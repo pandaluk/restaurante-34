@@ -1,5 +1,5 @@
 import { IPedidoController } from "./IPedidoController";
-import { IPedidoUseCase } from "@/core/application/useCases/pedido/IPedidoUseCase";
+import { IPedidoUseCase } from "../../core/application/useCases/pedido/IPedidoUseCase";
 import { Request, Response } from "express";
 
 class PedidoController implements IPedidoController{

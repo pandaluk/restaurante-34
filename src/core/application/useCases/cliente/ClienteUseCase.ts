@@ -1,5 +1,5 @@
-import { Cliente } from "@/core/domain/Entities/Cliente";
-import { IClienteRepository } from "@/core/ports/IClienteRepository";
+import { Cliente } from "../../../../core/domain/Entities/Cliente";
+import { IClienteRepository } from "../../../../core/ports/IClienteRepository";
 import { IClienteUseCase } from "./IClienteUseCase";
 
 export class CreateClienteUseCase implements IClienteUseCase{

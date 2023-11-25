@@ -1,5 +1,5 @@
-import { IClienteRepository } from "@/core/ports/IClienteRepository";
-import { Cliente } from "@/core/domain/Entities/Cliente";
+import { IClienteRepository } from "../../core/ports/IClienteRepository";
+import { Cliente } from "../../core/domain/Entities/Cliente";
 import { PrismaClient } from "@prisma/client";
 
 class ClienteRepository implements IClienteRepository {

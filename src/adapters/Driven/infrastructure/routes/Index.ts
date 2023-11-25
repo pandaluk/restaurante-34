@@ -1,19 +1,19 @@
 import { Application } from "express";
-import ClienteRepository from "@/adapters/Driver/ClienteRepository";
-import { CreateClienteUseCase } from "@/core/application/useCases/cliente/ClienteUseCase";
+import ClienteRepository from "../../../../adapters/Driver/ClienteRepository";
+import { CreateClienteUseCase } from "../../../../core/application/useCases/cliente/ClienteUseCase";
 import ClienteRoutes from "./ClienteRoutes";
 import { prisma } from "../database";
 
-import ProdutoRepository from "@/adapters/Driver/ProdutoRepository";
-import { CreateProdutoUseCase } from "@/core/application/useCases/produto/ProdutoUseCase";
+import ProdutoRepository from "../../../../adapters/Driver/ProdutoRepository";
+import { CreateProdutoUseCase } from "../../../../core/application/useCases/produto/ProdutoUseCase";
 import ProdutoRoutes from "./ProdutoRoutes";
-import ProdutoController from "@/adapters/controllers/ProdutoController";
-import ClienteController from "@/adapters/controllers/ClienteController";
-import PedidoRepository from "@/adapters/Driver/PedidoRepository";
-import PedidoUseCase from "@/core/application/useCases/pedido/PedidoUseCase";
-import ProdutosDoPedido from "@/adapters/Driver/ProdutosDoPedido";
+import ProdutoController from "../../../../adapters/controllers/ProdutoController";
+import ClienteController from "../../../../adapters/controllers/ClienteController";
+import PedidoRepository from "../../../../adapters/Driver/PedidoRepository";
+import PedidoUseCase from "../../../../core/application/useCases/pedido/PedidoUseCase";
+import ProdutosDoPedido from "../../../../adapters/Driver/ProdutosDoPedido";
 import PedidoRoutes from "./PedidoRoutes";
-import PedidoController from "@/adapters/controllers/PedidoController";
+import PedidoController from "../../../../adapters/controllers/PedidoController";
 
 const BASE_URL = "/api";
 

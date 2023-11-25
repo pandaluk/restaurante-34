@@ -1,5 +1,5 @@
 import { IpedidoRoutes } from "./IPedidoRoutes";
-import { IPedidoController } from "@/adapters/controllers/IPedidoController";
+import { IPedidoController } from "../../../../adapters/controllers/IPedidoController";
 
 class PedidoRoutes implements IpedidoRoutes {
     private express: any;

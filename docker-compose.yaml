@@ -1,27 +1,25 @@
-version: '3'
+version: '3.8'
 
 services:
-  postgres:
+  db:
     container_name: db-restaurante-34
     hostname: db-restaurante-34
-    image: postgres:latest
-    ports:
-      - "5438:5432"
-    expose:
-      - 5438
+    image: postgres:latest    
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
     volumes:
-      - pg_data:/var/lib/postgresql/data
-    networks:
-      - default
+      - ./db-data:/var/lib/postgresql/data
 
-  api:
-    container_name: restaurante-34-api
-    hostname: restaurante-34-api
-    build: 
+  app:
+    container_name: app-restaurante-34
+    hostname: app-restaurante-34
+    build:
       context: .
       dockerfile: Dockerfile
     ports:
@@ -29,18 +27,14 @@ services:
     expose:
       - 3001
     environment:
-      - DATABASE_URL=postgresql://root:root@postgres/postgres
+      - DATABASE_URL=postgresql://root:root@db/postgres
+      - PRISMA_CLIENT_LOG=['query', 'info', 'warn']
     volumes:
-      - pg_data:/var/lib/postgresql/data
-    networks:
-      - default
-    restart: always
+      - app_data:/usr/src/app/dist
     depends_on:
-      - postgres
-
-networks:
-  default:
-    driver: bridge
+      - db
+    restart: always
+    command: ["npm", "start"]
 
 volumes:
-  pg_data:
+  app_data:

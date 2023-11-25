@@ -9,12 +9,19 @@
         "seed": "ts-node prisma/seed.ts"
     },
     "scripts": {
-        "start": "npx prisma generate && npx prisma migrate dev --name init && npx prisma db seed && npm run dev",
-        "dev": "tsx watch src/adapters/Driven/infrastructure/server.ts",
-        "build": "npx prisma generate && tsc"        
+        "start-old-old": "ts-node --require tsconfig-paths/register dist/index.js",
+        "start-old": "npx prisma generate && npx prisma migrate dev --name init && npx prisma db seed && npm run dev",
+        "dev-old": "tsx watch src/index.ts",
+        "build-old": "npx prisma generate && tsc",
+
+        "start": "node dist/index.js",
+        "dev": "nodemon --exec ts-node src/index.ts",
+        "build": "tsc",
+        "migrate": "prisma migrate dev",
+        "seed": "prisma db seed"
     },
     "dependencies": {
-        "@prisma/client": "^5.1.1",
+        "@prisma/client": "^5.6.0",
         "@types/json-schema": "^7.0.13",
         "@typescript-eslint/eslint-plugin": "^5.59.9",
         "@typescript-eslint/parser": "^5.59.9",
@@ -22,8 +29,8 @@
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
-        "json-schema": "^0.4.0",
-        "prisma": "^5.1.1"
+        "prisma": "^5.6.0",
+        "json-schema": "^0.4.0"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.6.5",
@@ -36,9 +43,11 @@
         "eslint-plugin-prettier": "^4.2.1",
         "husky": "^8.0.3",
         "lint-staged": "^13.2.2",
-        "prettier": "^2.8.8",
+        "prettier": "^2.8.8",        
         "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.2.0",
         "tsx": "^3.12.7",
-        "typescript": "^5.2.2"
+        "typescript": "^5.2.2",
+        "nodemon": "^2.0.7"
     }
 }

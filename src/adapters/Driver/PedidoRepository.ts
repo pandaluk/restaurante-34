@@ -1,4 +1,4 @@
-import { IPedidoRepository } from "@/core/ports/IPedidoRepository";
+import { IPedidoRepository } from "../../core/ports/IPedidoRepository";
 import { Pedido, PrismaClient } from "@prisma/client";
 import { stat } from "fs";
 

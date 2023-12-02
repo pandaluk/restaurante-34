@@ -1,4 +1,4 @@
-import { Cliente } from "./cliente";
+import { Cliente } from "./Cliente";
 import ProdutosDoPedido from "@/old/adapters/Driver/ProdutosDoPedido";
 import { Pagamento } from "@prisma/client";
 

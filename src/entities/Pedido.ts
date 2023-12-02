@@ -1,5 +1,5 @@
-import { Cliente } from "./Cliente";
-import ProdutosDoPedido from "@/adapters/Driver/ProdutosDoPedido";
+import { Cliente } from "./cliente";
+import ProdutosDoPedido from "@/old/adapters/Driver/ProdutosDoPedido";
 import { Pagamento } from "@prisma/client";
 
 class Pedido {
@@ -12,7 +12,7 @@ class Pedido {
         public cliente: Cliente,
         public pagamento: Pagamento[],
         public statusPedido: StatusPedido,
-        public produtosDoPedido: ProdutosDoPedido[],
+        public produtosDoPedido: ProdutosDoPedido[]
     ) {}
 }
 

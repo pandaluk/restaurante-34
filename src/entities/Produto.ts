@@ -1,4 +1,4 @@
-import ProdutosDoPedido from "@/adapters/Driver/ProdutosDoPedido";
+import ProdutosDoPedido from "@/old/adapters/Driver/ProdutosDoPedido";
 import { CategoriaProduto, ProdutosDoCardapio } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 
@@ -10,8 +10,8 @@ export interface Produto {
     produtosDoCardapio: ProdutosDoCardapio[];
     produtosDoPedido: ProdutosDoPedido[];
     categoriaProduto: CategoriaProduto;
-    quantidade: number, 
-    valor: number
+    quantidade: number;
+    valor: number;
     createdAt: Date;
     updatedAt: Date;
 }

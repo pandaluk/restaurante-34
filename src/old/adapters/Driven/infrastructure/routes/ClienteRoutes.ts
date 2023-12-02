@@ -1,5 +1,5 @@
-import { IClienteRoutes } from "@/adapters/Driven/infrastructure/routes/IClienteRoutes";
-import { IClienteController } from "@/adapters/controllers/IClienteController";
+import { IClienteRoutes } from "@/old/adapters/Driven/infrastructure/routes/IClienteRoutes";
+import { IClienteController } from "@/old/adapters/controllers/IClienteController";
 import JsonSchemaMiddleware from "../middlewares/jsonSchemaValidation/base/JsonSchemaMiddleware";
 import { ClientePostSchema } from "../middlewares/jsonSchemaValidation/schemas/ClienteSchema";
 

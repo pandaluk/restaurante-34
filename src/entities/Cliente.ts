@@ -3,7 +3,7 @@ import { Pedido, Usuario } from "@prisma/client";
 export interface Cliente {
     id: number;
     usuarioId: number;
-    usuario:Usuario;
+    usuario: Usuario;
     pedido: Pedido[];
     nome?: string | null;
     email: string;

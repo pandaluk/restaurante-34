@@ -1,0 +1,524 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Restaurante34",
+        "description": "FIAP TechChallenge",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "servers": [
+        {
+            "url": "/api/",
+            "description": "For http requests"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Restaurante-34",
+            "descricao": "Fiap TechChallenge"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/cliente": {
+            "post": {
+                "tags": [
+                    "Cliente"
+                ],
+                "summary": "Create client in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cliente"
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "Cliente Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Cliente"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        }
+        },
+        "/cliente/{cpf}": {
+            "parameters": [
+                {
+                    "name": "cpf",
+                    "in": "path",
+                    "required": true,
+                    "description": "CPF of the Client that we want to match",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Cliente"
+                ],
+                "summary": "Get client by cpf in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cliente"
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Failed. Cat not found."
+                }
+            }
+        },
+        "/produto": {
+            "post": {
+                "tags": [
+                    "Produto"
+                ],
+                "summary": "Create client in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "Cliente Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/ProdutoInputPost"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },"put": {
+            "tags": [
+                "Produto"
+            ],
+            "summary": "Create client in system",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/Produto"
+                    }
+                }
+            },
+            "requestBody": {
+                "description": "Cliente Object",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                    }
+                }
+            },
+            "produces": [
+                "application/json"
+            ]
+        }
+        }
+    },
+    "/produto/{id}": {
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID of the Produto that we want to delete",
+                "type": "string"
+            }
+        ],
+        "delete": {
+            "tags": [
+                "Produto"
+            ],
+            "summary": "Create client in system",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/Produto"
+                    }
+                }
+            }
+        }
+        },
+        "/produtos/categoria/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the Categoria that we want to delete",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Produto"
+                ],
+                "summary": "Create client in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    }
+                }
+            }
+            },
+            "/pedidos": {
+                "get": {
+                    "tags": [
+                        "Pedido"
+                    ],
+                    "summary": "Create client in system",
+                    "responses": {
+                        "200": {
+                            "description": "OK",
+                            "schema": {
+                                "$ref": "#/definitions/Pedido"
+                            }
+                        }
+                    }
+                }
+                },
+            "/pedido/status/fakecheckout/{prefixoStatusPedido}": {
+                "get": {
+                "parameters": [
+                    {
+                        "name": "prefixoStatusPedido",
+                        "in": "path",
+                        "required": true,
+                        "description": "prefixoStatusPedido of the Pedido that we want to match",
+                        "type": "string",
+                        "default": "Em"
+                    }
+                ],
+                "tags": [
+                    "Pedido"
+                ],
+                "summary": "Create client in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
+                    }
+                }
+            }
+        },
+        "/pedido/{idCliente}/produto": {
+            "post": {
+            "parameters": [
+                {
+                    "name": "idCliente",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id of the Cliente that we want to match of Produto",
+                    "type": "string"
+                }
+            ],
+            "tags": [
+                "Pedido"
+            ],
+            "summary": "Link produto to pedido in system",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/ProdutoPedido"
+                    }
+                } 
+            },
+            "requestBody": {
+                "description": "Status Pedido Object",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                                "$ref": "#/definitions/ProdutoPedido"
+                        }
+                    }
+            },
+            "produces": [
+                "application/json"
+            ]
+        }
+        }
+        },
+        "/pedido/status/{statusPedido}": {
+            "get": {
+            "parameters": [
+                {
+                    "name": "statusPedido",
+                    "in": "path",
+                    "required": true,
+                    "description": "statusPedido of the Pedido that we want to match",
+                    "type": "string"
+                }
+            ],
+            "tags": [
+                "Pedido"
+            ],
+            "summary": "Create client in system",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/Pedido"
+                    }
+                }
+            }
+        }
+        },
+        "/pedido/{id}/alterar-status": {
+            "patch": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id of the Pedido that we want to match",
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Alterar Status"
+                ],
+                "summary": "Alterar Status Pedido in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/StatusPedido"
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "Status Pedido Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/StatusPedidoInput"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+            }
+        }
+    },
+    "definitions": {
+        "id": {
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "Cliente": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "nome": {
+                    "type": "string",
+                    "default": "Milton Abdon"
+                },
+                "cpf": {
+                    "type": "string",
+                    "default": "1231231234"
+                },
+                "email": {
+                    "type": "string",
+                    "default": "milton.teste@gmail.com"
+                },
+                "usuarioId": {
+                    "type": "integer",
+                    "default": 7
+                }
+            }
+        },
+        "Produto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "default": 6
+                },
+                "categoriaProdutoId": {
+                    "type": "integer",
+                    "default": 3
+                },
+                "descricao": {
+                    "type": "string",
+                    "default": "Fanta uva"
+                },
+                "preco": {
+                    "type": "string",
+                    "default": "15.00"
+                }
+            }
+        },
+        "ProdutoInputPost": {
+            "type": "object",
+            "properties": {
+                "categoriaProdutoId": {
+                    "type": "integer",
+                    "default": 3
+                },
+                "descricao": {
+                    "type": "string",
+                    "default": "Fanta uva"
+                },
+                "preco": {
+                    "type": "string",
+                    "default": "15.00"
+                }
+            }
+        },
+        "Pedido": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "clienteId": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "statusPedidoId": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "createdAt": {
+                    "type": "string",
+                    "default": "2023-11-25T00:58:42.701Z"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "default": "2023-11-25T00:58:42.701Z"
+                },
+                "statusPedido": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string",
+                        "example": {
+                            "enumerador": "Recebido"
+                        }
+                    }
+                }
+            }
+        },
+        "StatusPedidoInput": {
+            "type": "object",
+            "properties": {
+                "statusPedido": {
+                  "type": "string",
+                  "enum": ["Em Preparação"]
+                }
+              }
+        },
+        "StatusPedidoOutput": {
+            "type": "object",
+            "properties": {
+                "update": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "id": {
+                            "type": "integer",
+                            "default": 1
+                        },
+                        "clienteId": {
+                            "type": "integer",
+                            "default": 1
+                        },
+                        "statusPedidoId": {
+                            "type": "integer",
+                            "default": 1
+                        },
+                        "createdAt": {
+                            "type": "string",
+                            "default": "2023-11-25T00:58:42.701Z"
+                        },
+                        "updatedAt": {
+                            "type": "string",
+                            "default": "2023-11-25T00:58:42.701Z"
+                        }
+                    }
+                }
+            }
+        },
+        "ProdutoPedido": {
+            "type": "object",
+            "properties": {
+                "listaProdutos": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                        "id": {
+                            "type": "integer",
+                            "default": 3
+                        },
+                        "quantidade": {
+                            "type": "integer",
+                            "default": 8
+                        },
+                        "valor": {
+                            "type": "float",
+                            "default": 37.21
+                        }
+                    }
+                }
+                    }
+                }
+        },
+        "Clientes": {
+            "type": "object",
+            "properties": {
+                "Cliente": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Cliente"
+                    }
+                }
+            }
+        }
+    }
+}

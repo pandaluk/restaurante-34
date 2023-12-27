@@ -91,7 +91,7 @@
                 "tags": [
                     "Produto"
                 ],
-                "summary": "Create client in system",
+                "summary": "Create Produto in system",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -118,7 +118,7 @@
             "tags": [
                 "Produto"
             ],
-            "summary": "Create client in system",
+            "summary": "Edit Produto in system",
             "responses": {
                 "200": {
                     "description": "OK",
@@ -174,7 +174,7 @@
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "description": "ID of the Categoria that we want to delete",
+                    "description": "ID of the Categoria that we want to Get",
                     "type": "string"
                 }
             ],
@@ -198,7 +198,7 @@
                     "tags": [
                         "Pedido"
                     ],
-                    "summary": "Create client in system",
+                    "summary": "Get Pedido in system",
                     "responses": {
                         "200": {
                             "description": "OK",
@@ -224,7 +224,7 @@
                 "tags": [
                     "Pedido"
                 ],
-                "summary": "Create client in system",
+                "summary": "Get Pedido with params status",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -288,7 +288,7 @@
             "tags": [
                 "Pedido"
             ],
-            "summary": "Create client in system",
+            "summary": "Get Pedido by Type of Status in system",
             "responses": {
                 "200": {
                     "description": "OK",
@@ -313,7 +313,7 @@
                 "tags": [
                     "Alterar Status"
                 ],
-                "summary": "Alterar Status Pedido in system",
+                "summary": "Edit Status Pedido in system",
                 "responses": {
                     "200": {
                         "description": "OK",

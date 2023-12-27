@@ -14,6 +14,8 @@ import PedidoUseCase from "@/core/application/useCases/pedido/PedidoUseCase";
 import ProdutosDoPedido from "@/adapters/Driver/ProdutosDoPedido";
 import PedidoRoutes from "./PedidoRoutes";
 import PedidoController from "@/adapters/controllers/PedidoController";
+import HealthRoutes from "./HealthRoutes";
+import HealthController from "@/adapters/controllers/HealthController";
 
 const BASE_URL = "/api";
 
@@ -39,4 +41,8 @@ export default function routes(app: Application) {
     const pedidoRoutes = new PedidoRoutes(app, pedidoController, BASE_URL);
 
     pedidoRoutes.buildRoutes();
+
+    const healthRoutes = new HealthRoutes(app, new HealthController(),BASE_URL);
+
+    healthRoutes.buildRoutes();
 }

@@ -9,11 +9,11 @@
         "seed": "ts-node prisma/seed.ts"
     },
     "scripts": {
-        "start": "tsc && ts-node -r tsconfig-paths/register public/src/adapters/Driven/infrastructure/server.js",
+        "start": "tsc && npx prisma generate && ts-node -r tsconfig-paths/register public/src/adapters/Driven/infrastructure/server.js",
         "_start": "npx prisma generate && tsc && ts-node -r tsconfig-paths/register public/src/adapters/Driven/infrastructure/server.js",
         "dev": "tsx watch src/adapters/Driven/infrastructure/server.ts",
         "build": "npx prisma generate && tsc",
-        "prisma-setup": "npx prisma generate && npx prisma migrate dev --name init && npx prisma db seed"
+        "prisma-setup": "npx prisma migrate dev --name init && npx prisma db seed"
     },
     "dependencies": {
         "@prisma/client": "^5.6.0",

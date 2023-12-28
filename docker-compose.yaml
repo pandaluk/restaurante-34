@@ -6,9 +6,9 @@ services:
     hostname: db-restaurante-34
     image: postgres:latest
     ports:
-      - "5438:5432"
+      - "5432:5432"
     expose:
-      - 5438
+      - 5432
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: root
@@ -29,7 +29,7 @@ services:
     expose:
       - 3001
     environment:
-      - DATABASE_URL=postgresql://root:root@postgres/postgres
+      - DATABASE_URL=postgresql://root:root@postgres:5432/teste?schema=public
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:

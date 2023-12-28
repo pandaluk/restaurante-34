@@ -24,7 +24,7 @@ class HealthRoutes implements IHealthRoutes {
                 this.healthController.getHealth.bind(
                     this.healthController
                 )
-            )
+            );
     }
 }
 

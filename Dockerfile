@@ -17,4 +17,4 @@ RUN npm install
 
 EXPOSE 3001
 
-CMD ["npm", "run", "prisma-setup"]
+CMD ["npm","run", "start"]

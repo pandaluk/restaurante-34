@@ -42,7 +42,8 @@ export default function routes(app: Application) {
 
     pedidoRoutes.buildRoutes();
 
-    const healthRoutes = new HealthRoutes(app, new HealthController(),BASE_URL);
+    const healthController = new HealthController();
+    const healthRoutes = new HealthRoutes(app, healthController,BASE_URL);
 
     healthRoutes.buildRoutes();
 }

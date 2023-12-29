@@ -1,7 +1,7 @@
-import { Cliente } from "@/core/domain/Entities/Cliente";
+import { Cliente } from "@/entities/Cliente";
 
 export interface IClienteUseCase {
-  executeCreation(clienteData: Cliente): Promise<Cliente>;
-  executeGetByCpf(clienteId: string): Promise<Cliente>;
-  executeGetById(id: number): Promise<Cliente>;
+    executeCreation(clienteData: Cliente): Promise<Cliente>;
+    executeGetByCpf(clienteId: string): Promise<Cliente>;
+    executeGetById(id: number): Promise<Cliente>;
 }

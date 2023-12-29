@@ -1,6 +1,6 @@
 import { Produto } from "../../entities/produto";
 import { IProdutoRepository } from "@/old/core/ports/IProdutoRepository";
-import { IProdutoUseCase } from "@/interfaces/IProdutoUseCase";
+import { IProdutoUseCase } from "@/interfaces/usecases/IProdutoUseCase";
 
 export class CreateProdutoUseCase implements IProdutoUseCase {
     private produtoRepository: IProdutoRepository;

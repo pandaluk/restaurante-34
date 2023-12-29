@@ -1,16 +1,16 @@
 import { Application } from "express";
 import ClienteRepository from "@/old/adapters/Driver/ClienteRepository";
-import { CreateClienteUseCase } from "@/core/application/useCases/cliente/ClienteUseCase";
+import { CreateClienteUseCase } from "@/old/core/application/useCases/cliente/ClienteUseCase";
 import ClienteRoutes from "./ClienteRoutes";
 import { prisma } from "../database";
 
 import ProdutoRepository from "@/old/adapters/Driver/ProdutoRepository";
-import { CreateProdutoUseCase } from "@/core/application/useCases/produto/ProdutoUseCase";
+import { CreateProdutoUseCase } from "@/old/core/application/useCases/produto/ProdutoUseCase";
 import ProdutoRoutes from "./ProdutoRoutes";
 import ProdutoController from "@/old/adapters/controllers/ProdutoController";
 import ClienteController from "@/old/adapters/controllers/ClienteController";
 import PedidoRepository from "@/old/adapters/Driver/PedidoRepository";
-import PedidoUseCase from "@/core/application/useCases/pedido/PedidoUseCase";
+import PedidoUseCase from "@/old/core/application/useCases/pedido/PedidoUseCase";
 import ProdutosDoPedido from "@/old/adapters/Driver/ProdutosDoPedido";
 import PedidoRoutes from "./PedidoRoutes";
 import PedidoController from "@/old/adapters/controllers/PedidoController";

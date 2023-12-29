@@ -1,6 +1,6 @@
 // ClienteRepository.ts (interface)
 
-import { Cliente } from "../domain/Entities/Cliente";
+import { Cliente } from "@/entities/Cliente";
 
 export interface IClienteRepository {
     create(cliente: Cliente): Promise<Cliente>;

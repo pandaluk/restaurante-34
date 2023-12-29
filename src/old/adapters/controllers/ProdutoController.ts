@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { CreateProdutoUseCase } from "@/core/application/useCases/produto/ProdutoUseCase";
+import { CreateProdutoUseCase } from "@/old/core/application/useCases/produto/ProdutoUseCase";
 import { IProdutoController } from "@/old/adapters/controllers/IProdutoController";
 
 export default class ProdutoController implements IProdutoController {

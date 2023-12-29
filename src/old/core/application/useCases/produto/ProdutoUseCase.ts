@@ -1,5 +1,5 @@
-import { Produto } from "../../../domain/Entities/Produto";
-import { IProdutoRepository } from "@/core/ports/IProdutoRepository";
+import { Produto } from "@/entities/produto";
+import { IProdutoRepository } from "@/old/core/ports/IProdutoRepository";
 import { IProdutoUseCase } from "./IProdutoUseCase";
 
 export class CreateProdutoUseCase implements IProdutoUseCase {

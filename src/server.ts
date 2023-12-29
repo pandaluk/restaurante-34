@@ -3,7 +3,8 @@ import "dotenv/config";
 import http from "http";
 import bodyParser from "body-parser";
 import cors from "cors";
-import routes from "./routes/Index";
+import { routes } from "./api";
+import { prisma } from "@/external/database";
 
 try {
     const app = express();
@@ -13,7 +14,7 @@ try {
     app.use(express.json());
     app.use(cors());
 
-    routes(app);
+    new routes(app, prisma);
 
     const server = http.createServer(app);
 

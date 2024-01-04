@@ -17,6 +17,7 @@ export class routes {
         this.setupRoutes();
     }
     private setupRoutes() {
+        // gateway aqui? trata as informacoes para inserir ou retornar do banco
         const produtoRepository = new ProdutoRepository(this.prisma);
         const createProdutoUseCase = new CreateProdutoUseCase(
             produtoRepository

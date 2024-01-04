@@ -1,6 +1,7 @@
+import { Request, Response } from "express";
 export interface IProdutoController {
-    createProduto(req: any, res: any): any;
-    updateProduto(req: any, res: any): any;
-    deleteProduto(req: any, res: any): any;
-    getProdutosCategoria(req: any, res: any): any;
+    createProduto(req: Request, res: Response): any;
+    updateProduto(req: Request, res: Response): any;
+    deleteProduto(req: Request, res: Response): any;
+    getProdutosCategoria(req: Request, res: Response): any;
 }

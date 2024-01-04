@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { CreateProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
-import { IProdutoController } from "@/old/adapters/controllers/IProdutoController";
+import { IProdutoController } from "@/interfaces";
 
 export default class ProdutoController implements IProdutoController {
     private createProdutoUseCase: CreateProdutoUseCase;
@@ -12,6 +12,7 @@ export default class ProdutoController implements IProdutoController {
     async getProdutosCategoria(req: Request, res: Response) {
         const { categoriaProdutoId } = req.params;
         try {
+            // inserir gateway
             const getProduto =
                 await this.createProdutoUseCase.executeGetProdutoCategoria(
                     parseInt(categoriaProdutoId, 10)
@@ -43,6 +44,7 @@ export default class ProdutoController implements IProdutoController {
             return res.status(400).json({ message: error?.message });
         }
     }
+
     async updateProduto(req: Request, res: Response) {
         try {
             const requestBody = req.body;

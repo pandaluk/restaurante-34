@@ -1,6 +1,4 @@
-import { IBuildRoutes } from "@/interfaces/routes/IBuildRoutes";
-
-import { IProdutoController } from "@/old/adapters/controllers/IProdutoController";
+import { IBuildRoutes, IProdutoController } from "@/interfaces";
 
 class ProdutoRoutes implements IBuildRoutes {
     private express: any;

@@ -7,7 +7,7 @@ export class CreateProdutoUseCase implements IProdutoUseCase {
     constructor(produtoRepository: IProdutoRepository) {
         this.produtoRepository = produtoRepository;
     }
-
+    // chama gateway e o gateway chama o repositories
     async executeGetProdutoCategoria(
         categoriaProdutoId: number
     ): Promise<Produto[]> {

@@ -1,9 +1,9 @@
 import { Response, Request } from "express";
-import { CreateProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
+import { ProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
 import { IProdutoController } from "@/interfaces";
 
 export default class ProdutoController implements IProdutoController {
-    private createProdutoUseCase: CreateProdutoUseCase;
+    private createProdutoUseCase: ProdutoUseCase;
 
     constructor(CreateProdutoUseCase: any) {
         this.createProdutoUseCase = CreateProdutoUseCase;
@@ -12,7 +12,6 @@ export default class ProdutoController implements IProdutoController {
     async getProdutosCategoria(req: Request, res: Response) {
         const { categoriaProdutoId } = req.params;
         try {
-            // inserir gateway
             const getProduto =
                 await this.createProdutoUseCase.executeGetProdutoCategoria(
                     parseInt(categoriaProdutoId, 10)

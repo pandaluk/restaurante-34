@@ -1,29 +1,28 @@
-import { Produto } from "../../entities/produto";
-import { IProdutoUseCase, IProdutoRepository } from "@/interfaces";
+import { Produto } from "@/entities/produto";
+import { IProdutoUseCase, IProdutoGateway } from "@/interfaces";
 
-export class CreateProdutoUseCase implements IProdutoUseCase {
-    private produtoRepository: IProdutoRepository;
+export class ProdutoUseCase implements IProdutoUseCase {
+    private produtoGateway: IProdutoGateway;
 
-    constructor(produtoRepository: IProdutoRepository) {
-        this.produtoRepository = produtoRepository;
+    constructor(produtoGateway: IProdutoGateway) {
+        this.produtoGateway = produtoGateway;
     }
     // chama gateway e o gateway chama o repositories
-    async executeGetProdutoCategoria(
-        categoriaProdutoId: number
-    ): Promise<Produto[]> {
+    async executeGetProdutoCategoria(categoriaProdutoId: number) {
         try {
-            const getCategoria = await this.produtoRepository.get(
-                categoriaProdutoId
-            );
+            const getCategoria =
+                await this.produtoGateway.getProdutosCategoriaGateway(
+                    categoriaProdutoId
+                );
 
             return getCategoria;
         } catch (error) {
             throw error;
         }
     }
-    async executeCreation(produtoData: Produto): Promise<Produto> {
+    async executeCreation(produtoData: Produto) {
         try {
-            const novoCliente = await this.produtoRepository.create(
+            const novoCliente = await this.produtoGateway.createProdutoGateway(
                 produtoData
             );
 
@@ -32,9 +31,9 @@ export class CreateProdutoUseCase implements IProdutoUseCase {
             throw error;
         }
     }
-    async executeUpdate(produtoData: Produto): Promise<Produto> {
+    async executeUpdate(produtoData: Produto) {
         try {
-            const novoCliente = await this.produtoRepository.update(
+            const novoCliente = await this.produtoGateway.updateProdutoGateway(
                 produtoData
             );
 
@@ -43,9 +42,11 @@ export class CreateProdutoUseCase implements IProdutoUseCase {
             throw error;
         }
     }
-    async executeDelete(id: number): Promise<Produto> {
+    async executeDelete(id: number) {
         try {
-            const novoCliente = await this.produtoRepository.delete(id);
+            const novoCliente = await this.produtoGateway.deleteProdutoGateway(
+                id
+            );
 
             return novoCliente;
         } catch (error) {

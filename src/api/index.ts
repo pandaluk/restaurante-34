@@ -1,8 +1,9 @@
 import { Application } from "express";
 import ProdutoRoutes from "./produto";
-import { CreateProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
-import ProdutoRepository from "@/old/adapters/Driver/ProdutoRepository";
-import ProdutoController from "@/old/adapters/controllers/ProdutoController";
+import { ProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
+import ProdutoRepository from "@/external/repositories/ProdutoRepository";
+import ProdutoController from "@/controllers/ProdutoController";
+import { ProdutoGateway } from "@/gateways/produto";
 import { PrismaClient } from "@prisma/client";
 
 const BASE_URL = "/api";
@@ -17,12 +18,10 @@ export class routes {
         this.setupRoutes();
     }
     private setupRoutes() {
-        // gateway aqui? trata as informacoes para inserir ou retornar do banco
         const produtoRepository = new ProdutoRepository(this.prisma);
-        const createProdutoUseCase = new CreateProdutoUseCase(
-            produtoRepository
-        );
-        const produtoController = new ProdutoController(createProdutoUseCase);
+        const produtoGateway = new ProdutoGateway(produtoRepository);
+        const produtoUseCase = new ProdutoUseCase(produtoGateway);
+        const produtoController = new ProdutoController(produtoUseCase);
         const produtoRoutes = new ProdutoRoutes(
             this.app,
             produtoController,

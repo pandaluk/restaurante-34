@@ -1,20 +1,21 @@
-import { Produto } from "../../entities/produto";
-import { IProdutoUseCase, IProdutoRepository } from "@/interfaces";
+import { IProdutoUseCase, IProdutoGateway } from "@/interfaces";
+import { Produto } from "@prisma/client";
 
-export class CreateProdutoUseCase implements IProdutoUseCase {
-    private produtoRepository: IProdutoRepository;
+export class ProdutoUseCase implements IProdutoUseCase {
+    private produtoGateway: IProdutoGateway;
 
-    constructor(produtoRepository: IProdutoRepository) {
-        this.produtoRepository = produtoRepository;
+    constructor(produtoGateway: IProdutoGateway) {
+        this.produtoGateway = produtoGateway;
     }
 
     async executeGetProdutoCategoria(
         categoriaProdutoId: number
     ): Promise<Produto[]> {
         try {
-            const getCategoria = await this.produtoRepository.get(
-                categoriaProdutoId
-            );
+            const getCategoria =
+                await this.produtoGateway.getProdutosCategoriaGateway(
+                    categoriaProdutoId
+                );
 
             return getCategoria;
         } catch (error) {
@@ -23,7 +24,7 @@ export class CreateProdutoUseCase implements IProdutoUseCase {
     }
     async executeCreation(produtoData: Produto): Promise<Produto> {
         try {
-            const novoCliente = await this.produtoRepository.create(
+            const novoCliente = await this.produtoGateway.createProdutoGateway(
                 produtoData
             );
 
@@ -34,7 +35,7 @@ export class CreateProdutoUseCase implements IProdutoUseCase {
     }
     async executeUpdate(produtoData: Produto): Promise<Produto> {
         try {
-            const novoCliente = await this.produtoRepository.update(
+            const novoCliente = await this.produtoGateway.updateProdutoGateway(
                 produtoData
             );
 
@@ -45,7 +46,9 @@ export class CreateProdutoUseCase implements IProdutoUseCase {
     }
     async executeDelete(id: number): Promise<Produto> {
         try {
-            const novoCliente = await this.produtoRepository.delete(id);
+            const novoCliente = await this.produtoGateway.deleteProdutoGateway(
+                id
+            );
 
             return novoCliente;
         } catch (error) {

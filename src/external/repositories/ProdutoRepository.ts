@@ -66,11 +66,22 @@ class ProdutoRepository implements IProdutoRepository {
 
     async delete(id: number): Promise<Produto> {
         try {
+            await this.prismaClient.produtosDoCardapio.deleteMany({
+                where: {
+                    produtoId: id,
+                },
+            });
+            await this.prismaClient.produtosDoPedido.deleteMany({
+                where: {
+                    produtoId: id,
+                },
+            });
             const deleteResponse = await this.prismaClient.produto.delete({
                 where: {
                     id: id,
                 },
             });
+
             return deleteResponse as Produto;
         } catch (error) {
             throw error;

@@ -16,7 +16,7 @@ export class ProdutoGateway implements IProdutoGateway {
 
             return novoCliente;
         } catch (error) {
-            throw error;
+            throw new Error("Erro ao criar produto!");
         }
     }
 
@@ -28,17 +28,18 @@ export class ProdutoGateway implements IProdutoGateway {
 
             return novoCliente;
         } catch (error) {
-            throw error;
+            throw new Error("Erro ao atualizar o produto!");
         }
     }
 
     async deleteProdutoGateway(id: number): Promise<Produto> {
         try {
             const novoCliente = await this.produtoRepository.delete(id);
-
+            console.log("aqui");
             return novoCliente;
         } catch (error) {
-            throw error;
+            console.log("error", error);
+            throw new Error("Erro ao excluir o produto!");
         }
     }
 
@@ -49,10 +50,11 @@ export class ProdutoGateway implements IProdutoGateway {
             const getCategoria = await this.produtoRepository.get(
                 categoriaProdutoId
             );
-
             return getCategoria;
         } catch (error) {
-            throw error;
+            throw new Error(
+                `Erro ao obter produtos da categoria ${categoriaProdutoId}`
+            );
         }
     }
 }

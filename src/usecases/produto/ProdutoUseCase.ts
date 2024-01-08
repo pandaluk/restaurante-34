@@ -1,5 +1,5 @@
-import { Produto } from "@/entities/produto";
 import { IProdutoUseCase, IProdutoGateway } from "@/interfaces";
+import { Produto } from "@prisma/client";
 
 export class ProdutoUseCase implements IProdutoUseCase {
     private produtoGateway: IProdutoGateway;
@@ -7,8 +7,10 @@ export class ProdutoUseCase implements IProdutoUseCase {
     constructor(produtoGateway: IProdutoGateway) {
         this.produtoGateway = produtoGateway;
     }
-    // chama gateway e o gateway chama o repositories
-    async executeGetProdutoCategoria(categoriaProdutoId: number) {
+
+    async executeGetProdutoCategoria(
+        categoriaProdutoId: number
+    ): Promise<Produto[]> {
         try {
             const getCategoria =
                 await this.produtoGateway.getProdutosCategoriaGateway(
@@ -20,7 +22,7 @@ export class ProdutoUseCase implements IProdutoUseCase {
             throw error;
         }
     }
-    async executeCreation(produtoData: Produto) {
+    async executeCreation(produtoData: Produto): Promise<Produto> {
         try {
             const novoCliente = await this.produtoGateway.createProdutoGateway(
                 produtoData
@@ -31,7 +33,7 @@ export class ProdutoUseCase implements IProdutoUseCase {
             throw error;
         }
     }
-    async executeUpdate(produtoData: Produto) {
+    async executeUpdate(produtoData: Produto): Promise<Produto> {
         try {
             const novoCliente = await this.produtoGateway.updateProdutoGateway(
                 produtoData
@@ -42,7 +44,7 @@ export class ProdutoUseCase implements IProdutoUseCase {
             throw error;
         }
     }
-    async executeDelete(id: number) {
+    async executeDelete(id: number): Promise<Produto> {
         try {
             const novoCliente = await this.produtoGateway.deleteProdutoGateway(
                 id

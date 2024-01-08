@@ -1,23 +1,27 @@
 import { Response, Request } from "express";
-import { ProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
-import { IProdutoController } from "@/interfaces";
+import { IProdutoController, IProdutoUseCase } from "@/interfaces";
+import { ProdutoAdapter } from "@/adapters/produto";
+import { Produto } from "@prisma/client";
 
 export default class ProdutoController implements IProdutoController {
-    private createProdutoUseCase: ProdutoUseCase;
+    private produtoUseCase: IProdutoUseCase;
+    private produtoAdapter = new ProdutoAdapter();
 
-    constructor(CreateProdutoUseCase: any) {
-        this.createProdutoUseCase = CreateProdutoUseCase;
+    constructor(produtoUseCase: IProdutoUseCase) {
+        this.produtoUseCase = produtoUseCase;
     }
 
     async getProdutosCategoria(req: Request, res: Response) {
         const { categoriaProdutoId } = req.params;
         try {
-            const getProduto =
-                await this.createProdutoUseCase.executeGetProdutoCategoria(
+            const getProduto: Produto[] =
+                await this.produtoUseCase.executeGetProdutoCategoria(
                     parseInt(categoriaProdutoId, 10)
                 );
+            const responseProduto =
+                this.produtoAdapter.getProdutosAdapter(getProduto);
 
-            return res.status(200).json(getProduto);
+            return res.status(200).json(responseProduto);
         } catch (error: any) {
             return res.status(400).json({ message: error?.message });
         }
@@ -26,21 +30,32 @@ export default class ProdutoController implements IProdutoController {
     async createProduto(req: Request, res: Response) {
         const requestBody = req.body;
         if (!requestBody) {
-            return res
-                .status(400)
-                .json({ message: "Error criar produto, body vazio" });
+            const responseProduto =
+                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                    "Error criar produto, body vazio",
+                    false
+                );
+            return res.status(400).json(responseProduto);
         }
 
         try {
-            const produto = await this.createProdutoUseCase.executeCreation(
+            const produto = await this.produtoUseCase.executeCreation(
                 requestBody
             );
 
-            return res
-                .status(200)
-                .json({ message: "Sucesso criar produto", produto });
+            const responseProduto =
+                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                    "Sucesso criar produto",
+                    true
+                );
+            return res.status(200).json({ responseProduto, produto });
         } catch (error: any) {
-            return res.status(400).json({ message: error?.message });
+            const responseProduto =
+                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                    error?.message,
+                    false
+                );
+            return res.status(400).json(responseProduto);
         }
     }
 
@@ -48,29 +63,43 @@ export default class ProdutoController implements IProdutoController {
         try {
             const requestBody = req.body;
 
-            const produto = await this.createProdutoUseCase.executeUpdate(
+            const produto = await this.produtoUseCase.executeUpdate(
                 requestBody
             );
-            return res
-                .status(200)
-                .json({ message: "Sucesso ao atualizar o produto", produto });
+            const responseProduto =
+                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                    "Sucesso ao atualizar o produto",
+                    true
+                );
+            return res.status(200).json({ responseProduto, produto });
         } catch (error) {
-            return res
-                .status(400)
-                .json({ message: "Ops, algo de errado aconteceu!" });
+            const mensagemAdaptada =
+                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                    "Ops, algo de errado aconteceu!",
+                    false
+                );
+            return res.status(400).json(mensagemAdaptada);
         }
     }
 
     async deleteProduto(req: Request, res: Response) {
         const { id } = req.params;
         try {
-            await this.createProdutoUseCase.executeDelete(parseInt(id, 10));
+            await this.produtoUseCase.executeDelete(parseInt(id, 10));
 
-            return res
-                .status(200)
-                .json({ message: "Sucesso ao deletar o produto" });
+            const responseProduto =
+                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                    "Sucesso ao deletar o produto",
+                    true
+                );
+            return res.status(200).json(responseProduto);
         } catch (error: any) {
-            return res.status(400).json({ message: error?.message });
+            const responseProduto =
+                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                    error?.message,
+                    false
+                );
+            return res.status(400).json(responseProduto);
         }
     }
 }

@@ -1,5 +1,4 @@
 
-import { Cliente } from "@/entities/Cliente";
 import { IClienteGateway, IClienteRepository } from "@/interfaces";
 
 
@@ -15,6 +14,8 @@ export class ClienteGateway implements IClienteGateway {
             const novoCliente = await this.ClienteRepository.create(
                 clienteData
             );
+
+
 
             return novoCliente;
         } catch (error) {

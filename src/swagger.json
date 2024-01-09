@@ -28,6 +28,20 @@
         "application/json"
     ],
     "paths": {
+        "/health": {
+            "get": {
+                "tags": ["Health"],
+                "summary": "Check Health in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Health"
+                        }
+                    }
+                }
+        }
+        },
         "/cliente": {
             "post": {
                 "tags": [
@@ -345,6 +359,15 @@
             "properties": {
                 "uuid": {
                     "type": "string"
+                }
+            }
+        },
+        "Health": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "default": "Application Alive!!!"
                 }
             }
         },

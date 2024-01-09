@@ -17,6 +17,8 @@ import ProdutosDoPedidoRepository from "@/external/repositories/ProdutosDoPedido
 import { ProdutoDoPedidoGateway } from "@/gateways/produtosDoPedido";
 import PedidoController from "@/controllers/PedidoController";
 import PedidoRoutes from "./pedido";
+import HealthController from "@/controllers/HealthController";
+import HealthRoutes from "./health";
 
 const BASE_URL = "/api";
 
@@ -64,6 +66,13 @@ export class routes {
             BASE_URL
         )
         pedidoRoutes.buildRoutes()
-    }
 
+        const healthController = new HealthController()
+        const healthRoutes = new HealthRoutes(
+            this.app,
+            healthController,
+            BASE_URL
+        )
+        healthRoutes.buildRoutes()   
+    }
 }

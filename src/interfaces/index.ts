@@ -14,3 +14,4 @@ export { IPedidoRepository } from "./repositories/IPedidoRepository";
 export { IProdutosDoPedidoRepository } from "./repositories/IProdutosDoPedidoRepository";
 export { IPedidoGateway } from "./gateway/IPedidoGateway";
 export { IProdutoDoPedidoGateway } from "./gateway/IProdutosDoPedidoGateway";
+export { IHealthController } from "./controllers/IHealthController"

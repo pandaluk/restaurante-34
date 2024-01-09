@@ -5,6 +5,11 @@ import ProdutoRepository from "@/external/repositories/ProdutoRepository";
 import ProdutoController from "@/controllers/ProdutoController";
 import { ProdutoGateway } from "@/gateways/produto";
 import { PrismaClient } from "@prisma/client";
+import ClienteRepository from "@/external/repositories/ClienteRepository";
+import { ClienteGateway } from "@/gateways/cliente";
+import { ClienteUseCase } from "@/usecases/cliente/ClienteUseCase";
+import ClienteController from "@/controllers/ClienteController";
+import ClienteRoutes from "./cliente";
 
 const BASE_URL = "/api";
 
@@ -27,7 +32,18 @@ export class routes {
             produtoController,
             BASE_URL
         );
-
         produtoRoutes.buildRoutes();
+
+        const clienteRepository = new ClienteRepository(this.prisma);
+        const clienteGateway = new ClienteGateway(clienteRepository);
+        const clienteUseCase = new ClienteUseCase(clienteGateway);
+        const clienteController = new ClienteController(clienteUseCase);
+        const clienteRoutes = new ClienteRoutes(
+            this.app,
+            clienteController,
+            BASE_URL
+        )
+        clienteRoutes.buildRoutes()
     }
+    
 }

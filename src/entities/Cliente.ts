@@ -5,9 +5,9 @@ export interface Cliente {
     usuarioId: number;
     usuario: Usuario;
     pedido: Pedido[];
-    nome?: string | null;
+    nome: string | null;
     email: string;
     cpf: string;
     createdAt: Date;
-    updateAt: Date;
+    updatedAt: Date;
 }

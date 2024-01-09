@@ -1,8 +1,9 @@
+import { IProdutoPresenter } from "@/interfaces";
 import { Produto } from "@prisma/client";
 
 import { format } from "date-fns";
-export class ProdutoAdapter {
-    getProdutosAdapter(produtos: Produto[]): Produto[] {
+export class ProdutoPresenter implements IProdutoPresenter{
+    getProdutosPresenter(produtos: Produto[]): Produto[] {
         const CategoriaProduto = produtos.map((produto: Produto) => ({
             id: produto.id,
             categoriaProdutoId: produto.categoriaProdutoId,
@@ -19,7 +20,7 @@ export class ProdutoAdapter {
         }));
         return CategoriaProduto as any;
     }
-    adaptMensagemParaRespostaHttp(mensagem: string, sucesso: boolean): any {
+    presenterMensagemParaRespostaHttp(mensagem: string, sucesso: boolean): any {
         return {
             status: sucesso ? "sucesso" : "erro",
             mensagem: mensagem,

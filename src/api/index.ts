@@ -10,6 +10,13 @@ import { ClienteGateway } from "@/gateways/cliente";
 import { ClienteUseCase } from "@/usecases/cliente/ClienteUseCase";
 import ClienteController from "@/controllers/ClienteController";
 import ClienteRoutes from "./cliente";
+import PedidoRepository from "@/external/repositories/PedidoRepository";
+import { PedidoGateway } from "@/gateways/pedido";
+import PedidoUseCase from "@/usecases/pedido/PedidoUseCase";
+import ProdutosDoPedidoRepository from "@/external/repositories/ProdutosDoPedidoRepository";
+import { ProdutoDoPedidoGateway } from "@/gateways/produtosDoPedido";
+import PedidoController from "@/controllers/PedidoController";
+import PedidoRoutes from "./pedido";
 
 const BASE_URL = "/api";
 
@@ -44,6 +51,19 @@ export class routes {
             BASE_URL
         )
         clienteRoutes.buildRoutes()
+
+        const pedidoRepository = new PedidoRepository(this.prisma);
+        const produtosDoPedidoRepository = new ProdutosDoPedidoRepository(this.prisma)
+        const pedidoGateway = new PedidoGateway(pedidoRepository);
+        const produtosDoPedidoGateway = new ProdutoDoPedidoGateway(produtosDoPedidoRepository)
+        const pedidoUseCase = new PedidoUseCase(produtosDoPedidoGateway, pedidoGateway);
+        const pedidoController = new PedidoController(pedidoUseCase);
+        const pedidoRoutes = new PedidoRoutes(
+            this.app,
+            pedidoController,
+            BASE_URL
+        )
+        pedidoRoutes.buildRoutes()
     }
-    
+
 }

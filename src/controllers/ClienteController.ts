@@ -24,7 +24,7 @@ export default class ClienteController implements IClienteController {
             const cliente = await this.clienteUseCase.executeGetByCpf(
                 cpf
             );
-
+            console.log(cliente)
             return res
                 .status(200)
                 .json({ message: "Sucesso buscar cliente", cliente });

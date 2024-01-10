@@ -1,6 +1,7 @@
-import { Cliente } from "@/entities/Cliente";
-import { IClienteGateway, IClienteRepository } from "@/interfaces";
+
+import { IClienteGateway } from "@/interfaces";
 import { IClienteUseCase } from "@/interfaces/usecases/IClienteUseCase";
+import { Cliente } from "@prisma/client";
 
 
 
@@ -11,7 +12,7 @@ export class ClienteUseCase implements IClienteUseCase {
         this.clienteGateway = clienteGateway;
     }
 
-    async executeCreation(clienteData: Cliente): Promise<any> {
+    async executeCreation(clienteData: Cliente): Promise<Cliente> {
         try {
             // Aqui você pode adicionar lógica de validação ou manipulação de dados, se necessário.
 
@@ -27,7 +28,7 @@ export class ClienteUseCase implements IClienteUseCase {
         }
     }
 
-    async executeGetByCpf(cpf: string): Promise<any> {
+    async executeGetByCpf(cpf: string): Promise<Cliente> {
         try {
             // Aqui você pode adicionar lógica de validação ou manipulação de dados, se necessário.
 
@@ -44,7 +45,7 @@ export class ClienteUseCase implements IClienteUseCase {
             throw error;
         }
     }
-    async executeGetById(id: number): Promise<any> {
+    async executeGetById(id: number): Promise<Cliente> {
         try {
             const foundCliente = await this.clienteGateway.getById(id);
             if (!foundCliente) {

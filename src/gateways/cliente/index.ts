@@ -15,8 +15,6 @@ export class ClienteGateway implements IClienteGateway {
                 clienteData
             );
 
-
-
             return novoCliente;
         } catch (error) {
             throw new Error("Erro ao criar Cliente!");

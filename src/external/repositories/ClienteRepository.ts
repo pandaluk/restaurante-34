@@ -1,6 +1,6 @@
 
 import { Cliente } from "@/entities/Cliente";
-import { IClienteRepository } from "@/interfaces/repositories/IClienteRepository";
+import { IClienteRepository } from "@/interfaces";
 import { PrismaClient } from "@prisma/client";
 
 class ClienteRepository implements IClienteRepository {

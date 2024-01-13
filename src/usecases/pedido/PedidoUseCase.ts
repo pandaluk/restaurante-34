@@ -1,7 +1,7 @@
 import { IPedidoGateway, IPedidoRepository, IPedidoUseCase, IProdutoDoPedidoGateway, IProdutosDoPedidoRepository } from "@/interfaces";
 
 
-import { Pedido, Produto } from "@prisma/client";
+import { Pedido, ProdutosDoPedido } from "@prisma/client";
 
 class PedidoUseCase implements IPedidoUseCase {
     private produtosDoPedidoGateway: IProdutoDoPedidoGateway;
@@ -115,7 +115,7 @@ class PedidoUseCase implements IPedidoUseCase {
         }
     }
 
-    executeAddProdutoAoPedido(idPedido: number, produtos: Produto[]) {
+    executeAddProdutoAoPedido(idPedido: number, produtos: ProdutosDoPedido[]) {
         try {
             const response = this.produtosDoPedidoGateway.createProdutoDoPedidoGateway(
                 idPedido,

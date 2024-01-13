@@ -1,7 +1,7 @@
-import { ProdutosDoPedido } from "@/entities/ProdutosDoPedido";
+
 import { IProdutosDoPedidoRepository } from "@/interfaces";
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, ProdutosDoPedido } from "@prisma/client";
 
 class ProdutosDoPedidoRepository implements IProdutosDoPedidoRepository {
     private prismaClient: PrismaClient;

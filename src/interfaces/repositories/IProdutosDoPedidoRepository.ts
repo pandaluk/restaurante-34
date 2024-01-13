@@ -1,4 +1,5 @@
-import { ProdutosDoPedido } from "@/entities/ProdutosDoPedido";
+import { ProdutosDoPedido } from "@prisma/client";
+
 
 
 export interface IProdutosDoPedidoRepository {

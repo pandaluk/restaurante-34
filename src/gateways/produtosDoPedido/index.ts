@@ -1,6 +1,6 @@
 
 import { IProdutoDoPedidoGateway, IProdutosDoPedidoRepository } from "@/interfaces";
-import { Produto } from "@prisma/client";
+import { ProdutosDoPedido } from "@prisma/client";
 
 
 export class ProdutoDoPedidoGateway implements IProdutoDoPedidoGateway {
@@ -10,7 +10,7 @@ export class ProdutoDoPedidoGateway implements IProdutoDoPedidoGateway {
         this.produtoDoPedidoRepository = produtoDoPedidoRepository;
     }
 
-    async createProdutoDoPedidoGateway(idPedido: number, produto: Produto[]): Promise<any>  {
+    async createProdutoDoPedidoGateway(idPedido: number, produto: ProdutosDoPedido[]): Promise<any>  {
         try {
             const novoProdutoDoPedido = await this.produtoDoPedidoRepository.create(
                 idPedido, produto
@@ -23,7 +23,7 @@ export class ProdutoDoPedidoGateway implements IProdutoDoPedidoGateway {
     }
 
     async deleteProdutoDoPedidoGateway(
-        idPedido: number, produto: Produto[]
+        idPedido: number, produto: ProdutosDoPedido[]
     ): Promise<any> {
         try {
             const deleteProdutoDoPedido = await this.produtoDoPedidoRepository.delete(

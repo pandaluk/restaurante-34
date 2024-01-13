@@ -1,4 +1,4 @@
-// import ProdutosDoPedido from "../old/adapters/Driver/ProdutosDoPedido";
+
 import { CategoriaProduto, ProdutosDoCardapio } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 

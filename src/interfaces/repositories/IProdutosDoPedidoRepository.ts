@@ -1,6 +1,7 @@
-import { Produto, ProdutosDoPedido } from "@prisma/client";
+import { ProdutosDoPedido } from "@/entities/ProdutosDoPedido";
+
 
 export interface IProdutosDoPedidoRepository {
-  create(idPedido: number, produtos: Produto[]): Promise<any>;
-  delete(idPedido: number, produtos: Produto[]): Promise<any>;
+  create(idPedido: number, produtos: ProdutosDoPedido[]): Promise<any>;
+  delete(idPedido: number, produtos: ProdutosDoPedido[]): Promise<any>;
 }

@@ -1,4 +1,4 @@
-import { Produto } from "@/entities/produto";
+import { Produto } from "@/entities/Produto";
 import { IProdutoGateway, IProdutoRepository } from "@/interfaces";
 
 export class ProdutoGateway implements IProdutoGateway {
@@ -35,7 +35,6 @@ export class ProdutoGateway implements IProdutoGateway {
     async deleteProdutoGateway(id: number): Promise<Produto> {
         try {
             const novoCliente = await this.produtoRepository.delete(id);
-            console.log("aqui");
             return novoCliente;
         } catch (error) {
             console.log("error", error);

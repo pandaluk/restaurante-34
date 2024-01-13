@@ -1,4 +1,4 @@
-import { Produto } from "@/entities/produto";
+import { ProdutosDoPedido } from "@/entities/ProdutosDoPedido";
 import { IProdutosDoPedidoRepository } from "@/interfaces";
 
 import { PrismaClient } from "@prisma/client";
@@ -10,7 +10,7 @@ class ProdutosDoPedidoRepository implements IProdutosDoPedidoRepository {
         this.prismaClient = prismaClient;
     }
 
-    async create(idPedido: number, produtos: Produto[]) {
+    async create(idPedido: number, produtos: ProdutosDoPedido[]) {
         try {
             const response =
                 await this.prismaClient.produtosDoPedido.createMany({
@@ -26,11 +26,13 @@ class ProdutosDoPedidoRepository implements IProdutosDoPedidoRepository {
 
             return response;
         } catch (error) {
+            console.log(idPedido)
+            console.log(error)
             throw error;
         }
     }
 
-    async delete(idPedido: number, produtos: Produto[]) {
+    async delete(idPedido: number, produtos: ProdutosDoPedido[]) {
         try {
             const response = produtos.map(async ({ id }) => {
                 await this.prismaClient.produtosDoPedido.deleteMany({

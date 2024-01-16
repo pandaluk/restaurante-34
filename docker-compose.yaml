@@ -29,7 +29,12 @@ services:
     expose:
       - 3001
     environment:
-      - DATABASE_URL=postgresql://root:root@postgres:5432/teste?schema=public
+      POSTGRES_DB: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      DB_NAME: postgres
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:

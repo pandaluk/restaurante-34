@@ -9,9 +9,9 @@
         "seed": "ts-node prisma/seed.ts"
     },
     "scripts": {
-        "start": "tsc && npx prisma generate && ts-node -r tsconfig-paths/register public/src/adapters/Driven/infrastructure/server.js",
-        "_start": "npx prisma generate && tsc && ts-node -r tsconfig-paths/register public/src/adapters/Driven/infrastructure/server.js",
-        "dev": "tsx watch src/adapters/Driven/infrastructure/server.ts",
+        "start": "tsc && npx prisma generate && ts-node -r tsconfig-paths/register public/src/server.js",
+        "_start": "npx prisma generate && tsc && ts-node -r tsconfig-paths/register public/src/server.js",
+        "dev": "tsx watch src/server.ts",
         "build": "npx prisma generate && tsc",
         "prisma-setup": "npx prisma migrate dev --name init && npx prisma db seed"
     },
@@ -22,6 +22,7 @@
         "@typescript-eslint/parser": "^5.59.9",
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
+        "date-fns": "^3.1.0",
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
         "json-schema": "^0.4.0",

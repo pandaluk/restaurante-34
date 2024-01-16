@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: bd-svc
+  name: bd-svc
+spec:
+  ports:
+  - name: bd-svc
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: restaurante34dbdeployment
+  type: ClusterIP

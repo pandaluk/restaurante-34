@@ -28,6 +28,20 @@
         "application/json"
     ],
     "paths": {
+        "/health": {
+            "get": {
+                "tags": ["Health"],
+                "summary": "Check Health in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Health"
+                        }
+                    }
+                }
+        }
+        },
         "/cliente": {
             "post": {
                 "tags": [
@@ -235,14 +249,14 @@
                 }
             }
         },
-        "/pedido/{idCliente}/produto": {
+        "/pedido/{idPedido}/produto": {
             "post": {
             "parameters": [
                 {
                     "name": "idCliente",
                     "in": "path",
                     "required": true,
-                    "description": "Id of the Cliente that we want to match of Produto",
+                    "description": "Id of the Pedido that we want to match of Produto",
                     "type": "string"
                 }
             ],
@@ -345,6 +359,15 @@
             "properties": {
                 "uuid": {
                     "type": "string"
+                }
+            }
+        },
+        "Health": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "default": "Application Alive!!!"
                 }
             }
         },

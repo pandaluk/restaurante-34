@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurante34apiaeployment
+  labels:
+    app: restaurante34apiaeployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: restaurante34apiaeployment
+  template:
+    metadata:
+      labels:
+        app: restaurante34apiaeployment
+    spec:
+      containers:
+      - name: restaurante34apiaeployment
+        env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: db-configmap
+              key: POSTGRES_HOST
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: db-configmap
+              key: POSTGRES_PORT
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-configmap
+              key: DB_NAME
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: POSTGRES_PASSWORD
+        image: localhost/restaurante-34-api:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3001
+        resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+        livenessProbe:
+          httpGet:
+            path: /api/health/
+            port: 3001
+          initialDelaySeconds: 30
+          periodSeconds: 10

@@ -1,14 +1,19 @@
 import { Response, Request } from "express";
-import { IProdutoController, IProdutoUseCase } from "@/interfaces";
-import { ProdutoAdapter } from "@/adapters/produto";
+import { IProdutoController, IProdutoGateway, IProdutoUseCase } from "@/interfaces";
+import { ProdutoPresenter } from "@/presenters/produto";
 import { Produto } from "@prisma/client";
+import { ProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
+import ProdutoRepository from "@/external/repositories/ProdutoRepository";
+import { ProdutoGateway } from "@/gateways/produto";
 
 export default class ProdutoController implements IProdutoController {
     private produtoUseCase: IProdutoUseCase;
-    private produtoAdapter = new ProdutoAdapter();
+    private produtoGateway: IProdutoGateway;
+    private produtoPresenter = new ProdutoPresenter();
 
-    constructor(produtoUseCase: IProdutoUseCase) {
-        this.produtoUseCase = produtoUseCase;
+    constructor(produtoRepository: ProdutoRepository) {
+        this.produtoGateway = new ProdutoGateway(produtoRepository);
+        this.produtoUseCase = new ProdutoUseCase(this.produtoGateway);
     }
 
     async getProdutosCategoria(req: Request, res: Response) {
@@ -19,7 +24,7 @@ export default class ProdutoController implements IProdutoController {
                     parseInt(categoriaProdutoId, 10)
                 );
             const responseProduto =
-                this.produtoAdapter.getProdutosAdapter(getProduto);
+                this.produtoPresenter.getProdutosPresenter(getProduto);
 
             return res.status(200).json(responseProduto);
         } catch (error: any) {
@@ -31,7 +36,7 @@ export default class ProdutoController implements IProdutoController {
         const requestBody = req.body;
         if (!requestBody) {
             const responseProduto =
-                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                this.produtoPresenter.presenterMensagemParaRespostaHttp(
                     "Error criar produto, body vazio",
                     false
                 );
@@ -44,14 +49,14 @@ export default class ProdutoController implements IProdutoController {
             );
 
             const responseProduto =
-                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                this.produtoPresenter.presenterMensagemParaRespostaHttp(
                     "Sucesso criar produto",
                     true
                 );
             return res.status(200).json({ responseProduto, produto });
         } catch (error: any) {
             const responseProduto =
-                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                this.produtoPresenter.presenterMensagemParaRespostaHttp(
                     error?.message,
                     false
                 );
@@ -67,14 +72,14 @@ export default class ProdutoController implements IProdutoController {
                 requestBody
             );
             const responseProduto =
-                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                this.produtoPresenter.presenterMensagemParaRespostaHttp(
                     "Sucesso ao atualizar o produto",
                     true
                 );
             return res.status(200).json({ responseProduto, produto });
         } catch (error) {
             const mensagemAdaptada =
-                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                this.produtoPresenter.presenterMensagemParaRespostaHttp(
                     "Ops, algo de errado aconteceu!",
                     false
                 );
@@ -88,14 +93,14 @@ export default class ProdutoController implements IProdutoController {
             await this.produtoUseCase.executeDelete(parseInt(id, 10));
 
             const responseProduto =
-                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                this.produtoPresenter.presenterMensagemParaRespostaHttp(
                     "Sucesso ao deletar o produto",
                     true
                 );
             return res.status(200).json(responseProduto);
         } catch (error: any) {
             const responseProduto =
-                this.produtoAdapter.adaptMensagemParaRespostaHttp(
+                this.produtoPresenter.presenterMensagemParaRespostaHttp(
                     error?.message,
                     false
                 );

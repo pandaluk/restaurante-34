@@ -35,7 +35,6 @@ export class ProdutoGateway implements IProdutoGateway {
     async deleteProdutoGateway(id: number): Promise<Produto> {
         try {
             const novoCliente = await this.produtoRepository.delete(id);
-            console.log("aqui");
             return novoCliente;
         } catch (error) {
             console.log("error", error);

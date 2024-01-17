@@ -1,6 +1,5 @@
 import { Cliente } from "./Cliente";
-import ProdutosDoPedido from "@/old/adapters/Driver/ProdutosDoPedido";
-import { Pagamento } from "@prisma/client";
+import { Pagamento, ProdutosDoPedido } from "@prisma/client";
 
 class Pedido {
     constructor(

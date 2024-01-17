@@ -1,11 +1,12 @@
-import { Pedido, ProdutosDoPedido } from "@prisma/client";
+import { IListaProdutosDoPedido } from "@/entities/ProdutosDoPedido";
+import { Pedido } from "@prisma/client";
 
 export interface IPedidoUseCase{
   executeCreation(pedidoData: Pedido): any;
   executeDelete(idPedido: number): any;
   executeGetPedidoById(idPedido: number): any;
   executeGetPedidos(): any;
-  executeAddProdutoAoPedido(idPedido: number, produtos: ProdutosDoPedido[]): any;
+  executeAddProdutoAoPedido(idPedido: number, produtos: IListaProdutosDoPedido[]): any;
   executeRemoveProdutoDoPedido(idPedido: number, idProdutos: number): any;
   executeUpdatePedidoPreparacao(idPedido: number): any;
   executeUpdatePedidoPronto(idPedido: number): any;

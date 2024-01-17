@@ -1,9 +1,6 @@
 import { Application } from "express";
 import ProdutoRoutes from "./produto";
-import { ProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
-import ProdutoRepository from "@/external/repositories/ProdutoRepository";
 import ProdutoController from "@/controllers/ProdutoController";
-import { ProdutoGateway } from "@/gateways/produto";
 import { PrismaClient } from "@prisma/client";
 import ClienteRepository from "@/external/repositories/ClienteRepository";
 import { ClienteGateway } from "@/gateways/cliente";
@@ -19,6 +16,7 @@ import PedidoController from "@/controllers/PedidoController";
 import PedidoRoutes from "./pedido";
 import HealthController from "@/controllers/HealthController";
 import HealthRoutes from "./health";
+import ProdutoRepository from "@/external/repositories/ProdutoRepository";
 
 const BASE_URL = "/api";
 
@@ -33,9 +31,7 @@ export class routes {
     }
     private setupRoutes() {
         const produtoRepository = new ProdutoRepository(this.prisma);
-        const produtoGateway = new ProdutoGateway(produtoRepository);
-        const produtoUseCase = new ProdutoUseCase(produtoGateway);
-        const produtoController = new ProdutoController(produtoUseCase);
+        const produtoController = new ProdutoController(produtoRepository);
         const produtoRoutes = new ProdutoRoutes(
             this.app,
             produtoController,
@@ -51,28 +47,28 @@ export class routes {
             this.app,
             clienteController,
             BASE_URL
-        )
-        clienteRoutes.buildRoutes()
+        );
+        clienteRoutes.buildRoutes();
 
         const pedidoRepository = new PedidoRepository(this.prisma);
-        const produtosDoPedidoRepository = new ProdutosDoPedidoRepository(this.prisma)
+        const produtosDoPedidoRepository = new ProdutosDoPedidoRepository(this.prisma);
         const pedidoGateway = new PedidoGateway(pedidoRepository);
-        const produtosDoPedidoGateway = new ProdutoDoPedidoGateway(produtosDoPedidoRepository)
+        const produtosDoPedidoGateway = new ProdutoDoPedidoGateway(produtosDoPedidoRepository);
         const pedidoUseCase = new PedidoUseCase(produtosDoPedidoGateway, pedidoGateway);
         const pedidoController = new PedidoController(pedidoUseCase);
         const pedidoRoutes = new PedidoRoutes(
             this.app,
             pedidoController,
             BASE_URL
-        )
-        pedidoRoutes.buildRoutes()
+        );
+        pedidoRoutes.buildRoutes();
 
-        const healthController = new HealthController()
+        const healthController = new HealthController();
         const healthRoutes = new HealthRoutes(
             this.app,
             healthController,
             BASE_URL
-        )
-        healthRoutes.buildRoutes()   
+        );
+        healthRoutes.buildRoutes();   
     }
 }

@@ -9,6 +9,7 @@ import { routes } from "./api";
 import { prisma } from "@/external/database";
 
 try {
+
     const app = express();
 
     app.use(bodyParser.json({ limit: "50mb" }));

@@ -1,4 +1,4 @@
-import { Produto } from "@/entities/Produto";
+import { Produto } from "@/entities/produto";
 import { IProdutoGateway, IProdutoRepository } from "@/interfaces";
 
 export class ProdutoGateway implements IProdutoGateway {

@@ -3,5 +3,5 @@ import { Pedido } from "@prisma/client";
 
 export interface IProdutoDoPedidoGateway {
     createProdutoDoPedidoGateway(produtosDoPedido: ProdutosDoPedido): Promise<any>;
-    deleteProdutoDoPedidoGateway(idPedido: number, produto: ProdutosDoPedido[]): Promise<Pedido>;
+    deleteProdutoDoPedidoGateway(produtosDoPedido: ProdutosDoPedido): Promise<any>;
 }

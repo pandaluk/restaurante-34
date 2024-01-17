@@ -1,14 +1,19 @@
 import { Response, Request } from "express";
-import { IProdutoController, IProdutoUseCase } from "@/interfaces";
+import { IProdutoController, IProdutoGateway, IProdutoUseCase } from "@/interfaces";
 import { ProdutoPresenter } from "@/presenters/produto";
 import { Produto } from "@prisma/client";
+import { ProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
+import ProdutoRepository from "@/external/repositories/ProdutoRepository";
+import { ProdutoGateway } from "@/gateways/produto";
 
 export default class ProdutoController implements IProdutoController {
     private produtoUseCase: IProdutoUseCase;
+    private produtoGateway: IProdutoGateway;
     private produtoPresenter = new ProdutoPresenter();
 
-    constructor(produtoUseCase: IProdutoUseCase) {
-        this.produtoUseCase = produtoUseCase;
+    constructor(produtoRepository: ProdutoRepository) {
+        this.produtoGateway = new ProdutoGateway(produtoRepository);
+        this.produtoUseCase = new ProdutoUseCase(this.produtoGateway);
     }
 
     async getProdutosCategoria(req: Request, res: Response) {

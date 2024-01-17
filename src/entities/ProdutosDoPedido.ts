@@ -19,7 +19,7 @@ class ProdutosDoPedido {
     }
 }
 export interface IListaProdutosDoPedido {
-  produtoId: string;
+  produtoId: number;
   quantidade: number;
   valor: number;
 }

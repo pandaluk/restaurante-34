@@ -24,12 +24,11 @@ export class ProdutoDoPedidoGateway implements IProdutoDoPedidoGateway {
         }
     }
 
-    async deleteProdutoDoPedidoGateway(
-        idPedido: number, produto: ProdutosDoPedido[]
-    ): Promise<any> {
+    async deleteProdutoDoPedidoGateway( produtosDoPedido: ProdutosDoPedido ): Promise<any> {
+        const { idPedido, listaProdutos } = produtosDoPedido;
         try {
             const deleteProdutoDoPedido = await this.produtoDoPedidoRepository.delete(
-                idPedido, produto
+                idPedido, listaProdutos
             );
             return deleteProdutoDoPedido;
         } catch (error) {

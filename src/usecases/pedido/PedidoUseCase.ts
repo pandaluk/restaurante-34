@@ -131,6 +131,16 @@ class PedidoUseCase implements IPedidoUseCase {
     executeRemoveProdutoDoPedido(idPedido: number, idProdutos: number) {
         throw new Error("Method executeRemoveProdutoAoPedido not implemented.");
     }
+    
+    async executeGetProdutoDoPedido(idPedido: number) {
+        try {
+            const produtosDoPedido = await this.produtosDoPedidoGateway.getProdutoDoPedidoGateway(idPedido);
+            return produtosDoPedido;
+        } catch (error) {
+            console.error(error);
+            throw new Error(`Erro ao buscar Produtos do Pedido ${idPedido}`);            
+        }
+    }
 }
 
 export default PedidoUseCase;

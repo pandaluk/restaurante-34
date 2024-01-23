@@ -9,7 +9,7 @@ class ProdutosDoPedidoRepository implements IProdutosDoPedidoRepository {
 
     constructor(prismaClient: PrismaClient) {
         this.prismaClient = prismaClient;
-    }
+    }    
 
     async create(idPedido: number, produtos: IListaProdutosDoPedido[]) {
         try {
@@ -45,6 +45,20 @@ class ProdutosDoPedidoRepository implements IProdutosDoPedidoRepository {
             });
             return response;
         } catch(error) {
+            throw error;
+        }
+    }
+
+    async get(idPedido: number): Promise<any> {
+        try {
+            const response = await this.prismaClient.produtosDoPedido.findMany({
+                where: {
+                    pedidoId: idPedido
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
             throw error;
         }
     }

@@ -1,4 +1,4 @@
-import { IProdutoPresenter } from "@/interfaces";
+import { IProdutoPresenter } from "@/interfaces/presenters/IProdutoPresenter";
 import { Produto } from "@prisma/client";
 
 import { format } from "date-fns";

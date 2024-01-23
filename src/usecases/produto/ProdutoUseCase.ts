@@ -24,33 +24,62 @@ export class ProdutoUseCase implements IProdutoUseCase {
     }
     async executeCreation(produtoData: Produto): Promise<Produto> {
         try {
-            const novoCliente = await this.produtoGateway.createProdutoGateway(
-                produtoData
+
+            const novoProduto = new Produto(
+                produtoData.id,
+                produtoData.descricao,
+                produtoData.preco,
+                produtoData.categoriaProdutoId,
+                produtoData.produtosDoCardapio,
+                produtoData.produtosDoPedido,
+                produtoData.categoriaProduto,
+                produtoData.quantidade,
+                produtoData.valor,
+                produtoData.createdAt,
+                produtoData.updatedAt
             );
 
-            return novoCliente;
+            const novoProdutoResponse = await this.produtoGateway.createProdutoGateway(
+              novoProduto
+            );
+
+            return novoProdutoResponse;
         } catch (error) {
             throw error;
         }
     }
     async executeUpdate(produtoData: Produto): Promise<Produto> {
         try {
-            const novoCliente = await this.produtoGateway.updateProdutoGateway(
-                produtoData
+          const novoProduto = new Produto(
+                produtoData.id,
+                produtoData.descricao,
+                produtoData.preco,
+                produtoData.categoriaProdutoId,
+                produtoData.produtosDoCardapio,
+                produtoData.produtosDoPedido,
+                produtoData.categoriaProduto,
+                produtoData.quantidade,
+                produtoData.valor,
+                produtoData.createdAt,
+                produtoData.updatedAt
             );
 
-            return novoCliente;
+            const produtoAtualizado = await this.produtoGateway.updateProdutoGateway(
+                novoProduto
+            );
+
+            return produtoAtualizado;
         } catch (error) {
             throw error;
         }
     }
     async executeDelete(id: number): Promise<Produto> {
         try {
-            const novoCliente = await this.produtoGateway.deleteProdutoGateway(
+            const produtoDeletado = await this.produtoGateway.deleteProdutoGateway(
                 id
             );
 
-            return novoCliente;
+            return produtoDeletado;
         } catch (error) {
             throw error;
         }

@@ -1,5 +1,6 @@
 import { Pagamento, ProdutosDoPedido } from "@prisma/client";
 import Cliente from "./Cliente";
+import { StatusPedido } from "./StatusPedido";
 
 class Pedido {
 

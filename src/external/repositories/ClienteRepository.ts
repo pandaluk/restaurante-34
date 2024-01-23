@@ -16,7 +16,6 @@ class ClienteRepository implements IClienteRepository {
                     nome: cliente.nome,
                     cpf: cliente.cpf,
                     email: cliente.email,
-
                     usuarioId: cliente.usuarioId,
                 },
             });

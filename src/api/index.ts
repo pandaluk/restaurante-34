@@ -40,9 +40,7 @@ export class routes {
         produtoRoutes.buildRoutes();
 
         const clienteRepository = new ClienteRepository(this.prisma);
-        const clienteGateway = new ClienteGateway(clienteRepository);
-        const clienteUseCase = new ClienteUseCase(clienteGateway);
-        const clienteController = new ClienteController(clienteUseCase);
+        const clienteController = new ClienteController(clienteRepository);
         const clienteRoutes = new ClienteRoutes(
             this.app,
             clienteController,
@@ -51,11 +49,13 @@ export class routes {
         clienteRoutes.buildRoutes();
 
         const pedidoRepository = new PedidoRepository(this.prisma);
-        const produtosDoPedidoRepository = new ProdutosDoPedidoRepository(this.prisma);
-        const pedidoGateway = new PedidoGateway(pedidoRepository);
-        const produtosDoPedidoGateway = new ProdutoDoPedidoGateway(produtosDoPedidoRepository);
-        const pedidoUseCase = new PedidoUseCase(produtosDoPedidoGateway, pedidoGateway);
-        const pedidoController = new PedidoController(pedidoUseCase);
+        const produtosDoPedidoRepository = new ProdutosDoPedidoRepository(
+            this.prisma
+        );
+        const pedidoController = new PedidoController(
+            pedidoRepository,
+            produtosDoPedidoRepository
+        );
         const pedidoRoutes = new PedidoRoutes(
             this.app,
             pedidoController,
@@ -69,6 +69,6 @@ export class routes {
             healthController,
             BASE_URL
         );
-        healthRoutes.buildRoutes();   
+        healthRoutes.buildRoutes();
     }
 }

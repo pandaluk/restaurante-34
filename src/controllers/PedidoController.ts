@@ -1,13 +1,33 @@
-
-import { IPedidoController, IPedidoUseCase } from "@/interfaces";
-
+import {
+    IPedidoController,
+    IPedidoUseCase,
+    IPedidoGateway,
+    IProdutoDoPedidoGateway,
+} from "@/interfaces";
+import PedidoRepository from "@/external/repositories/PedidoRepository";
 import { Request, Response } from "express";
+import { PedidoGateway } from "@/gateways/pedido";
+import PedidoUseCase from "@/usecases/pedido/PedidoUseCase";
+import { ProdutoDoPedidoGateway } from "@/gateways/produtosDoPedido";
+import ProdutosDoPedidoRepository from "@/external/repositories/ProdutosDoPedidoRepository";
 
 class PedidoController implements IPedidoController {
     private pedidoUseCase: IPedidoUseCase;
+    private pedidoGateway: IPedidoGateway;
+    private produtosDoPedidoGateway: IProdutoDoPedidoGateway;
 
-    constructor(pedidoUseCase: IPedidoUseCase) {
-        this.pedidoUseCase = pedidoUseCase;
+    constructor(
+        pedidoRepository: PedidoRepository,
+        produtosDoPedidoRepository: ProdutosDoPedidoRepository
+    ) {
+        this.pedidoGateway = new PedidoGateway(pedidoRepository);
+        this.produtosDoPedidoGateway = new ProdutoDoPedidoGateway(
+            produtosDoPedidoRepository
+        );
+        this.pedidoUseCase = new PedidoUseCase(
+            this.produtosDoPedidoGateway,
+            this.pedidoGateway
+        );
     }
 
     async createPedido(req: Request, res: Response) {

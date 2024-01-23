@@ -1,5 +1,5 @@
+import Produto from "@/entities/produto";
 import { IProdutoUseCase, IProdutoGateway } from "@/interfaces";
-import { Produto } from "@prisma/client";
 
 export class ProdutoUseCase implements IProdutoUseCase {
     private produtoGateway: IProdutoGateway;

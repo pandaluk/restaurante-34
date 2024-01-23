@@ -1,6 +1,5 @@
+import Produto from "@/entities/produto";
 import { IProdutoPresenter } from "@/interfaces";
-import { Produto } from "@prisma/client";
-
 import { format } from "date-fns";
 export class ProdutoPresenter implements IProdutoPresenter{
     getProdutosPresenter(produtos: Produto[]): Produto[] {

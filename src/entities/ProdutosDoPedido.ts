@@ -15,7 +15,7 @@ class ProdutosDoPedido {
     }
 
     validateProductsQuantity(listaProdutos: IListaProdutosDoPedido[]) {
-      if (listaProdutos.length > 1) {
+      if (listaProdutos.length <= 0) {
         throw new Error("Lista de produtos vazia");
       }
     }

@@ -1,18 +1,33 @@
-import { Cliente } from "./Cliente";
 import { Pagamento, ProdutosDoPedido } from "@prisma/client";
+import Cliente from "./Cliente";
 
 class Pedido {
+
+    id: number;
+    statusPedidoId: number;
+    clienteId: number;
+    cliente: Cliente;
+    pagamento: Pagamento[];
+    statusPedido: StatusPedido;
+    produtosDoPedido: ProdutosDoPedido[];
+
     constructor(
-        public id: number,
-        public statusPedidoId: number,
-        public clienteId: number,
-        public createdAt: Date,
-        public updateAt: Date,
-        public cliente: Cliente,
-        public pagamento: Pagamento[],
-        public statusPedido: StatusPedido,
-        public produtosDoPedido: ProdutosDoPedido[]
-    ) {}
+        id: number,
+        statusPedidoId: number,
+        clienteId: number,
+        cliente: Cliente,
+        pagamento: Pagamento[],
+        statusPedido: StatusPedido,
+        produtosDoPedido: ProdutosDoPedido[]
+    ) {
+        this.id = id,
+        this.statusPedidoId= statusPedidoId,
+        this.clienteId= clienteId,
+        this.cliente= cliente,
+        this.pagamento= pagamento,
+        this.statusPedido= statusPedido,
+        this.produtosDoPedido= produtosDoPedido
+    }
 }
 
 export default Pedido;

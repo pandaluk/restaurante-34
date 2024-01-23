@@ -1,5 +1,4 @@
-
-import { Cliente } from "@/entities/Cliente";
+import Cliente from "@/entities/Cliente";
 import { IClienteRepository } from "@/interfaces";
 import { PrismaClient } from "@prisma/client";
 

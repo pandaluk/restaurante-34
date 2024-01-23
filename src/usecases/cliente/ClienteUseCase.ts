@@ -1,9 +1,7 @@
 
+import Cliente from "@/entities/Cliente";
 import { IClienteGateway } from "@/interfaces";
 import { IClienteUseCase } from "@/interfaces/usecases/IClienteUseCase";
-import { Cliente } from "@prisma/client";
-
-
 
 export class ClienteUseCase implements IClienteUseCase {
     private clienteGateway: IClienteGateway;

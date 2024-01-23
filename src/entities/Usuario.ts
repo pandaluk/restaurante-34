@@ -1,4 +1,5 @@
-import { Cliente, Funcionario } from "@prisma/client";
+import { Funcionario } from "@prisma/client";
+import Cliente from "./Cliente";
 
 class Usuario {
     constructor(

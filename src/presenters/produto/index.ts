@@ -1,4 +1,4 @@
-import Produto from "@/entities/produto";
+import Produto from "@/entities/Produto";
 import { IProdutoPresenter } from "@/interfaces";
 import { format } from "date-fns";
 export class ProdutoPresenter implements IProdutoPresenter{

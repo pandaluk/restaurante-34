@@ -1,4 +1,4 @@
-import Produto from "@/entities/produto";
+import Produto from "@/entities/Produto";
 export interface IProdutoGateway {
     createProdutoGateway(produtoData: Produto): Promise<Produto>;
     updateProdutoGateway(produtoData: Produto): Promise<Produto>;

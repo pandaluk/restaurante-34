@@ -1,4 +1,4 @@
-import Produto from "@/entities/produto";
+import Produto from "@/entities/Produto";
 import { IProdutoRepository } from "@/interfaces";
 import { PrismaClient } from "@prisma/client";
 

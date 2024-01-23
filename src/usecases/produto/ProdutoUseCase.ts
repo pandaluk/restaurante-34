@@ -1,4 +1,4 @@
-import Produto from "@/entities/produto";
+import Produto from "@/entities/Produto";
 import { IProdutoUseCase, IProdutoGateway } from "@/interfaces";
 
 export class ProdutoUseCase implements IProdutoUseCase {

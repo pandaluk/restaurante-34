@@ -1,3 +1,5 @@
+import { IListaProdutosDoPedido } from "@/interfaces/entities/IListaProdutosDoPedido";
+
 class ProdutosDoPedido {
     idPedido: number;
     listaProdutos: IListaProdutosDoPedido[];
@@ -17,11 +19,6 @@ class ProdutosDoPedido {
         throw new Error("Lista de produtos vazia");
       }
     }
-}
-export interface IListaProdutosDoPedido {
-  produtoId: number;
-  quantidade: number;
-  valor: number;
 }
 
 export default ProdutosDoPedido;

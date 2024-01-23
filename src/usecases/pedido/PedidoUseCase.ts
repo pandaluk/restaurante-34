@@ -2,7 +2,8 @@ import { IPedidoGateway, IPedidoRepository, IPedidoUseCase, IProdutoDoPedidoGate
 
 
 import { Pedido } from "@prisma/client";
-import ProdutosDoPedido, { IListaProdutosDoPedido } from "@/entities/ProdutosDoPedido";
+import ProdutosDoPedido from "@/entities/ProdutosDoPedido";
+import { IListaProdutosDoPedido } from "@/interfaces/entities/IListaProdutosDoPedido";
 
 class PedidoUseCase implements IPedidoUseCase {
     private produtosDoPedidoGateway: IProdutoDoPedidoGateway;

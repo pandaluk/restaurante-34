@@ -1,9 +1,8 @@
-import { IPedidoGateway, IPedidoRepository, IPedidoUseCase, IProdutoDoPedidoGateway, IProdutosDoPedidoRepository } from "@/interfaces";
+import { IPedidoGateway, IPedidoUseCase, IProdutoDoPedidoGateway } from "@/interfaces";
 
-
-import { Pedido } from "@prisma/client";
 import ProdutosDoPedido from "@/entities/ProdutosDoPedido";
 import { IListaProdutosDoPedido } from "@/interfaces/entities/IListaProdutosDoPedido";
+import Pedido from "@/entities/Pedido";
 
 class PedidoUseCase implements IPedidoUseCase {
     private produtosDoPedidoGateway: IProdutoDoPedidoGateway;
@@ -20,7 +19,16 @@ class PedidoUseCase implements IPedidoUseCase {
     async executeCreation(clienteData: Pedido) {
         clienteData.statusPedidoId = 1;
         try {
-            const response = await this.pedidoGateway.createPedidoGateway(clienteData);
+          const newPedido = new Pedido(
+                clienteData.id,
+                clienteData.statusPedidoId,
+                clienteData.clienteId,
+                clienteData.cliente,
+                clienteData.pagamento,
+                clienteData.statusPedido,
+                clienteData.produtosDoPedido
+          );
+            const response = await this.pedidoGateway.createPedidoGateway(newPedido);
 
             return response;
         } catch (error) {

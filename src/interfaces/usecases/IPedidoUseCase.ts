@@ -1,4 +1,4 @@
-import { Pedido } from "@prisma/client";
+import Pedido from "@/entities/Pedido";
 import { IListaProdutosDoPedido } from "../entities/IListaProdutosDoPedido";
 
 export interface IPedidoUseCase{

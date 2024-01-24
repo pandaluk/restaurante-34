@@ -1,5 +1,4 @@
-
-import { Cliente } from "@/entities/Cliente";
+import Cliente from "@/entities/Cliente";
 import { IClienteRepository } from "@/interfaces";
 import { PrismaClient } from "@prisma/client";
 
@@ -17,7 +16,6 @@ class ClienteRepository implements IClienteRepository {
                     nome: cliente.nome,
                     cpf: cliente.cpf,
                     email: cliente.email,
-
                     usuarioId: cliente.usuarioId,
                 },
             });

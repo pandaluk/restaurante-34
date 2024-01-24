@@ -1,4 +1,4 @@
-import { Produto } from "@prisma/client";
+import Produto from "@/entities/Produto";
 
 export interface IProdutoPresenter {
     getProdutosPresenter(produtos: Produto[]): Produto[];

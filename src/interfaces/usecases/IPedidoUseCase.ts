@@ -1,5 +1,5 @@
-import { IListaProdutosDoPedido } from "@/entities/ProdutosDoPedido";
-import { Pedido } from "@prisma/client";
+import Pedido from "@/entities/Pedido";
+import { IListaProdutosDoPedido } from "../entities/IListaProdutosDoPedido";
 
 export interface IPedidoUseCase{
   executeCreation(pedidoData: Pedido): any;

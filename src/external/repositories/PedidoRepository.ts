@@ -1,6 +1,7 @@
 
 import { IPedidoRepository } from "@/interfaces";
 import { Pedido, PrismaClient } from "@prisma/client";
+import * as pedidoEntity from "@/entities/Pedido";
 
 class PedidoRepository implements IPedidoRepository {
     private prismaClient: PrismaClient;
@@ -9,7 +10,7 @@ class PedidoRepository implements IPedidoRepository {
         this.prismaClient = prismaClient;
     }
 
-    async create(pedido: Pedido) {
+    async create(pedido: pedidoEntity.default) {
         try {
             const pedidoResponse = await this.prismaClient.pedido.create({
                 data: {

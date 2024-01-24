@@ -1,10 +1,10 @@
 import { Response, Request } from "express";
 import { IProdutoController, IProdutoGateway, IProdutoUseCase } from "@/interfaces";
 import { ProdutoPresenter } from "@/presenters/produto";
-import { Produto } from "@prisma/client";
 import { ProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
 import ProdutoRepository from "@/external/repositories/ProdutoRepository";
 import { ProdutoGateway } from "@/gateways/produto";
+import Produto from "@/entities/Produto";
 
 export default class ProdutoController implements IProdutoController {
     private produtoUseCase: IProdutoUseCase;

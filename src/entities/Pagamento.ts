@@ -1,4 +1,4 @@
-import { Pedido } from "@prisma/client";
+import Pedido from "./Pedido";
 
 class Pagamento {
     constructor(

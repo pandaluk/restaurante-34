@@ -1,9 +1,7 @@
 
+import Cliente from "@/entities/Cliente";
 import { IClienteGateway } from "@/interfaces";
 import { IClienteUseCase } from "@/interfaces/usecases/IClienteUseCase";
-import { Cliente } from "@prisma/client";
-
-
 
 export class ClienteUseCase implements IClienteUseCase {
     private clienteGateway: IClienteGateway;
@@ -13,12 +11,24 @@ export class ClienteUseCase implements IClienteUseCase {
     }
 
     async executeCreation(clienteData: Cliente): Promise<Cliente> {
+
         try {
+            const cliente = new Cliente(
+                clienteData.id,
+                clienteData.usuarioId,
+                clienteData.usuario,
+                clienteData.pedido,
+                clienteData.nome,
+                clienteData.email,
+                clienteData.cpf,
+                clienteData.createdAt,
+                clienteData.updatedAt
+            );
             // Aqui você pode adicionar lógica de validação ou manipulação de dados, se necessário.
 
             // Chame o método create do repositório para criar um novo cliente
             const novoCliente = await this.clienteGateway.createClienteGateway(
-                clienteData
+              cliente
             );
 
             return novoCliente;

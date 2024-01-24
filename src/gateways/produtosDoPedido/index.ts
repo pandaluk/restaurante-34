@@ -37,4 +37,14 @@ export class ProdutoDoPedidoGateway implements IProdutoDoPedidoGateway {
             );
         }
     }
+
+    async getProdutoDoPedidoGateway(idPedido: number): Promise<any> {
+        try {
+            const produtosDoPedido = await this.produtoDoPedidoRepository.get(idPedido);
+            return produtosDoPedido;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 }

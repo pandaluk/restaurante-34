@@ -1,5 +1,6 @@
 import Produto from "@/entities/Produto";
-import { IProdutoPresenter } from "@/interfaces";
+import { IProdutoPresenter } from "@/interfaces/presenters/IProdutoPresenter";
+
 import { format } from "date-fns";
 export class ProdutoPresenter implements IProdutoPresenter{
     getProdutosPresenter(produtos: Produto[]): Produto[] {

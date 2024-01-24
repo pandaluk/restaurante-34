@@ -15,3 +15,5 @@ class Pagamento {
         public updatedAt: Date,
     ) {}
 }
+
+export default Pagamento;

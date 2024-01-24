@@ -2,6 +2,8 @@ import { IPedidoGateway, IPedidoRepository, IPedidoUseCase, IProdutoDoPedidoGate
 
 
 import { Pedido } from "@prisma/client";
+
+
 import ProdutosDoPedido, { IListaProdutosDoPedido } from "@/entities/ProdutosDoPedido";
 
 class PedidoUseCase implements IPedidoUseCase {
@@ -72,11 +74,32 @@ class PedidoUseCase implements IPedidoUseCase {
     async executeGetPedidos() {
         try {
             const response = await this.pedidoGateway.getPedidoGateway();
-            return response;
+            const formatResponse = this.formatPedido(response)
+            return formatResponse;
         } catch (error) {
             throw error;
         }
     }
+
+    formatPedido(pedidos: any[]): any[] {
+        let filtroPedidos = this.filtroPedidos(pedidos)
+        let formatPedidosResponse = this.orderPedidos(filtroPedidos)
+        return formatPedidosResponse
+    }
+    
+    filtroPedidos(pedidos: any[]): any[] {
+        let filtroPedidos = pedidos.filter(pedido => pedido.statusPedido.enumerador != "Finalizado")    
+        return filtroPedidos
+    }
+
+    orderPedidos(pedidos: any[]): any[]{
+        const pedidosEmPreparacao = pedidos.filter((pedido) => pedido.statusPedido.enumerador == 'Em preparação');
+        const pedidosPronto = pedidos.filter((pedido) => pedido.statusPedido.enumerador == 'Pronto');
+        const pedidosRecebido = pedidos.filter((pedido) => pedido.statusPedido.enumerador == 'Recebido');
+    
+        return [...pedidosPronto, ...pedidosEmPreparacao, ...pedidosRecebido];
+    }
+
 
     async executeGetPedidoByStatus(status: string) {
         try {
@@ -89,7 +112,6 @@ class PedidoUseCase implements IPedidoUseCase {
             throw error;
         }
     }
-
     async executeGetPedidoFakeCheckout(status: string) {
         try {
             const response =

@@ -74,24 +74,13 @@ class PedidoUseCase implements IPedidoUseCase {
     async executeGetPedidos() {
         try {
             const response = await this.pedidoGateway.getPedidoGateway();
-            const formatResponse = this.formatPedido(response)
+            const formatResponse = this.orderPedidos(response)
             return formatResponse;
         } catch (error) {
             throw error;
         }
     }
-
-    formatPedido(pedidos: any[]): any[] {
-        let filtroPedidos = this.filtroPedidos(pedidos)
-        let formatPedidosResponse = this.orderPedidos(filtroPedidos)
-        return formatPedidosResponse
-    }
     
-    filtroPedidos(pedidos: any[]): any[] {
-        let filtroPedidos = pedidos.filter(pedido => pedido.statusPedido.enumerador != "Finalizado")    
-        return filtroPedidos
-    }
-
     orderPedidos(pedidos: any[]): any[]{
         const pedidosEmPreparacao = pedidos.filter((pedido) => pedido.statusPedido.enumerador == 'Em preparação');
         const pedidosPronto = pedidos.filter((pedido) => pedido.statusPedido.enumerador == 'Pronto');

@@ -1,5 +1,4 @@
-import { Cliente } from "@prisma/client";
-
+import Cliente from "@/entities/Cliente";
 
 export interface IClienteUseCase {
     executeCreation(clienteData: Cliente): Promise<Cliente>;

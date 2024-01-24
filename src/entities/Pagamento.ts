@@ -1,4 +1,4 @@
-import { Pedido } from "@prisma/client";
+import Pedido from "./Pedido";
 
 class Pagamento {
     constructor(
@@ -15,3 +15,5 @@ class Pagamento {
         public updatedAt: Date,
     ) {}
 }
+
+export default Pagamento;

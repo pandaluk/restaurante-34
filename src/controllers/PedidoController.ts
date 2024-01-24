@@ -1,6 +1,4 @@
-
 import { IPedidoController, IPedidoUseCase } from "@/interfaces";
-
 import { Request, Response } from "express";
 
 class PedidoController implements IPedidoController {

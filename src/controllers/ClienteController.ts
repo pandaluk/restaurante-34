@@ -1,6 +1,4 @@
 import { Response, Request } from "express";
-
-
 import { IClienteController, IClienteUseCase } from "@/interfaces";
 
 

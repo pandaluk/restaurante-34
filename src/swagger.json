@@ -21,12 +21,8 @@
             "descricao": "Fiap TechChallenge"
         }
     ],
-    "consumes": [
-        "application/json"
-    ],
-    "produces": [
-        "application/json"
-    ],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
     "paths": {
         "/health": {
             "get": {
@@ -40,14 +36,12 @@
                         }
                     }
                 }
-        }
+            }
         },
         "/cliente": {
             "post": {
-                "tags": [
-                    "Cliente"
-                ],
-                "summary": "Create client in system",
+                "tags": ["Cliente"],
+                "summary": "Cria um novo cliente",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -57,20 +51,18 @@
                     }
                 },
                 "requestBody": {
-                    "description": "Cliente Object",
+                    "description": "Objeto de Cliente",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "$ref": "#/definitions/Cliente"
+                            }
                         }
-                    }
-                },
-                "produces": [
-                    "application/json"
-                ]
+                    },
+                    "produces": ["application/json"]
+                }
             }
-        }
         },
         "/cliente/{cpf}": {
             "parameters": [
@@ -78,15 +70,13 @@
                     "name": "cpf",
                     "in": "path",
                     "required": true,
-                    "description": "CPF of the Client that we want to match",
+                    "description": "CPF do cliente que deseja buscar",
                     "type": "string"
                 }
             ],
             "get": {
-                "tags": [
-                    "Cliente"
-                ],
-                "summary": "Get client by cpf in system",
+                "tags": ["Cliente"],
+                "summary": "Busca cliente pelo CPF",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -102,10 +92,32 @@
         },
         "/produto": {
             "post": {
-                "tags": [
-                    "Produto"
-                ],
-                "summary": "Create Produto in system",
+                "tags": ["Produto"],
+                "summary": "Cria um novo produto",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "Objeto de Produto",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/ProdutoInputPost"
+                            }
+                        }
+                    },
+                    "produces": ["application/json"]
+                }
+            },
+            "put": {
+                "tags": ["Produto"],
+                "summary": "Edit Produto in system",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -120,83 +132,27 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/definitions/ProdutoInputPost"
+                                "$ref": "#/definitions/Produto"
+                            }
                         }
-                    }
-                },
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },"put": {
-            "tags": [
-                "Produto"
-            ],
-            "summary": "Edit Produto in system",
-            "responses": {
-                "200": {
-                    "description": "OK",
-                    "schema": {
-                        "$ref": "#/definitions/Produto"
-                    }
-                }
-            },
-            "requestBody": {
-                "description": "Cliente Object",
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/definitions/Produto"
-                    }
-                }
-            },
-            "produces": [
-                "application/json"
-            ]
-        }
-        }
-    },
-    "/produto/{id}": {
-        "parameters": [
-            {
-                "name": "id",
-                "in": "path",
-                "required": true,
-                "description": "ID of the Produto that we want to delete",
-                "type": "string"
-            }
-        ],
-        "delete": {
-            "tags": [
-                "Produto"
-            ],
-            "summary": "Create client in system",
-            "responses": {
-                "200": {
-                    "description": "OK",
-                    "schema": {
-                        "$ref": "#/definitions/Produto"
-                    }
+                    },
+                    "produces": ["application/json"]
                 }
             }
-        }
         },
-        "/produtos/categoria/{id}": {
+        "/produto/{id}": {
             "parameters": [
                 {
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "description": "ID of the Categoria that we want to Get",
+                    "description": "ID do produto que deseja deletar",
                     "type": "string"
                 }
             ],
-            "get": {
-                "tags": [
-                    "Produto"
-                ],
-                "summary": "Create client in system",
+            "delete": {
+                "tags": ["Produto"],
+                "summary": "Deleta um produto",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -206,39 +162,58 @@
                     }
                 }
             }
-            },
-            "/pedidos": {
-                "get": {
-                    "tags": [
-                        "Pedido"
-                    ],
-                    "summary": "Get Pedido in system",
-                    "responses": {
-                        "200": {
-                            "description": "OK",
-                            "schema": {
-                                "$ref": "#/definitions/Pedido"
-                            }
+        },
+        "/produtos/categoria/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID da categoria que deseja buscar",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Produto"],
+                "summary": "Busca os produtos da categoria desejada",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
                         }
                     }
                 }
-                },
-            "/pedido/status/fakecheckout/{prefixoStatusPedido}": {
-                "get": {
+            }
+        },
+        "/pedidos": {
+            "get": {
+                "tags": ["Pedido"],
+                "summary": "Busca os pedidos no sistema, ordenados pelo status(Pronto > Em Preparação > Recebido) e pela data. Não mostra os finalizados",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
+                    }
+                }
+            }
+        },
+        "/pedido/status/fakecheckout/{prefixoStatusPedido}": {
+            "get": {
                 "parameters": [
                     {
                         "name": "prefixoStatusPedido",
                         "in": "path",
                         "required": true,
-                        "description": "prefixoStatusPedido of the Pedido that we want to match",
+                        "description": "prefixoStatusPedido do pedido que deseja buscar",
                         "type": "string",
                         "default": "Em"
                     }
                 ],
-                "tags": [
-                    "Pedido"
-                ],
-                "summary": "Get Pedido with params status",
+                "tags": ["Pedido"],
+                "summary": "Busca os pedidos de acordo com o prefixo passado",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -251,67 +226,61 @@
         },
         "/pedido/{idPedido}/produto": {
             "post": {
-            "parameters": [
-                {
-                    "name": "idCliente",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id of the Pedido that we want to match of Produto",
-                    "type": "string"
-                }
-            ],
-            "tags": [
-                "Pedido"
-            ],
-            "summary": "Link produto to pedido in system",
-            "responses": {
-                "200": {
-                    "description": "OK",
-                    "schema": {
-                        "$ref": "#/definitions/ProdutoPedido"
+                "parameters": [
+                    {
+                        "name": "idCliente",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do pedido que deseja inserir os produtos",
+                        "type": "string"
                     }
-                } 
-            },
-            "requestBody": {
-                "description": "Status Pedido Object",
-                "required": true,
-                "content": {
-                    "application/json": {
+                ],
+                "tags": ["Pedido"],
+                "summary": "Insere produtos no pedido desejado",
+                "responses": {
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                                "$ref": "#/definitions/ProdutoPedido"
+                            "$ref": "#/definitions/ProdutoPedido"
                         }
                     }
-            },
-            "produces": [
-                "application/json"
-            ]
-        }
-        }
+                },
+                "requestBody": {
+                    "description": "Produtos do pedido",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/ProdutoPedido"
+                            }
+                        }
+                    },
+                    "produces": ["application/json"]
+                }
+            }
         },
         "/pedido/status/{statusPedido}": {
             "get": {
-            "parameters": [
-                {
-                    "name": "statusPedido",
-                    "in": "path",
-                    "required": true,
-                    "description": "statusPedido of the Pedido that we want to match",
-                    "type": "string"
-                }
-            ],
-            "tags": [
-                "Pedido"
-            ],
-            "summary": "Get Pedido by Type of Status in system",
-            "responses": {
-                "200": {
-                    "description": "OK",
-                    "schema": {
-                        "$ref": "#/definitions/Pedido"
+                "parameters": [
+                    {
+                        "name": "statusPedido",
+                        "in": "path",
+                        "required": true,
+                        "description": "Status do pedido que deseja buscar",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Pedido"],
+                "summary": "Busca os pedidos pelo status desejado",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
                     }
                 }
             }
-        }
         },
         "/pedido/{id}/alterar-status": {
             "patch": {
@@ -320,14 +289,12 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "Id of the Pedido that we want to match",
+                        "description": "ID do pedido que deseja alterar o status",
                         "type": "string"
                     }
                 ],
-                "tags": [
-                    "Alterar Status"
-                ],
-                "summary": "Edit Status Pedido in system",
+                "tags": ["Alterar Status"],
+                "summary": "Altera o status do pedido",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -337,20 +304,96 @@
                     }
                 },
                 "requestBody": {
-                    "description": "Status Pedido Object",
+                    "description": "Objeto de status",
                     "required": true,
                     "content": {
                         "application/json": {
                             "type": "array",
                             "schema": {
                                 "$ref": "#/definitions/StatusPedidoInput"
+                            }
+                        }
+                    },
+                    "produces": ["application/json"]
+                }
+            }
+        },
+        "/pagamento/{pagamentoId}": {
+            "parameters": [
+                {
+                    "name": "pagamentoId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID do pagamento",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Pagamento"],
+                "summary": "Busca um pagamento pelo ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pagamento"
                         }
                     }
                 },
-                "produces": [
-                    "application/json"
-                ]
+                "404": {
+                    "description": "Failed. Cat not found."
+                }
             }
+        },
+        "/pagamento": {
+            "post": {
+                "tags": ["Pagamento"],
+                "summary": "Cria um novo pagamento para um pedido",
+                "requestBody": {
+                    "description": "ID do pedido para gerar o pagamento",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "idPedido": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PagamentoResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/webhook/pagamento": {
+            "post": {
+                "tags": ["Pagamento"],
+                "summary": "Webhook que atualiza o status de um pagamento",
+                "requestBody": {
+                    "description": "Dados do pagamento",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "pagamentoId": 1,
+                                "status": 2,
+                                "token": "token"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PagamentoResponse"
+                        }
+                    }
+                }
             }
         }
     },
@@ -472,10 +515,10 @@
             "type": "object",
             "properties": {
                 "statusPedido": {
-                  "type": "string",
-                  "enum": ["Em Preparação"]
+                    "type": "string",
+                    "enum": ["Em Preparação"]
                 }
-              }
+            }
         },
         "StatusPedidoOutput": {
             "type": "object",
@@ -515,22 +558,22 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                        "id": {
-                            "type": "integer",
-                            "default": 3
-                        },
-                        "quantidade": {
-                            "type": "integer",
-                            "default": 8
-                        },
-                        "valor": {
-                            "type": "float",
-                            "default": 37.21
+                            "id": {
+                                "type": "integer",
+                                "default": 3
+                            },
+                            "quantidade": {
+                                "type": "integer",
+                                "default": 8
+                            },
+                            "valor": {
+                                "type": "float",
+                                "default": 37.21
+                            }
                         }
                     }
                 }
-                    }
-                }
+            }
         },
         "Clientes": {
             "type": "object",
@@ -539,6 +582,57 @@
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/Cliente"
+                    }
+                }
+            }
+        },
+        "Pagamento": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "statusPagamentoId": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "pedidoId": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "tipo": {
+                    "type": "string",
+                    "default": "Pix"
+                },
+                "data": {
+                    "type": "string",
+                    "default": "2023-11-25T00:58:42.701Z"
+                },
+                "valor": {
+                    "type": "double",
+                    "default": 10.0
+                },
+                "createdAt": {
+                    "type": "string",
+                    "default": "2023-11-25T00:58:42.701Z"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "default": "2023-11-25T00:58:42.701Z"
+                }
+            }
+        },
+        "PagamentoResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Pagamento"
                     }
                 }
             }

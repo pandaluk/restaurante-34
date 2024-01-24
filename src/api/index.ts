@@ -12,6 +12,9 @@ import PedidoRoutes from "./pedido";
 import HealthController from "@/controllers/HealthController";
 import HealthRoutes from "./health";
 import ProdutoRepository from "@/external/repositories/ProdutoRepository";
+import PagamentoRepository from "@/external/repositories/PagamentoRepository";
+import PagamentoController from "@/controllers/PagamentoController";
+import PagamentoRoutes from "./pagamento";
 
 const BASE_URL = "/api";
 
@@ -64,6 +67,19 @@ export class routes {
             healthController,
             BASE_URL
         );
-        healthRoutes.buildRoutes();
+        healthRoutes.buildRoutes();   
+
+        const pagamentoRepository = new PagamentoRepository(this.prisma);        
+        const pagamentoController = new PagamentoController(
+            pagamentoRepository, 
+            pedidoRepository, 
+            produtosDoPedidoRepository
+        );
+        const pagamentoRoutes = new PagamentoRoutes(
+            this.app,
+            pagamentoController,
+            BASE_URL
+        );
+        pagamentoRoutes.buildRoutes();
     }
 }

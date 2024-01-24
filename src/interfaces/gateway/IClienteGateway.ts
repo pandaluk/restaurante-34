@@ -1,4 +1,5 @@
-import { Cliente } from "@prisma/client";
+import Cliente from "@/entities/Cliente";
+
 
 export interface IClienteGateway {
     createClienteGateway(clienteData: Cliente): Promise<Cliente> ;

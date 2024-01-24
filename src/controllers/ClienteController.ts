@@ -1,5 +1,4 @@
 import { Response, Request } from "express";
-
 import {
     IClienteController,
     IClienteGateway,
@@ -8,6 +7,7 @@ import {
 import ClienteRepository from "@/external/repositories/ClienteRepository";
 import { ClienteUseCase } from "@/usecases/cliente/ClienteUseCase";
 import { ClienteGateway } from "@/gateways/cliente";
+
 
 export default class ClienteController implements IClienteController {
     private clienteUseCase: IClienteUseCase;

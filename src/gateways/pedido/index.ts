@@ -1,7 +1,6 @@
 
+import Pedido from "@/entities/Pedido";
 import { IPedidoGateway, IPedidoRepository } from "@/interfaces";
-import { Pedido } from "@prisma/client";
-
 
 export class PedidoGateway implements IPedidoGateway {
     private pedidoRepository: IPedidoRepository;

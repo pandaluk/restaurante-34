@@ -1,12 +1,20 @@
 import { Response, Request } from "express";
-import { IClienteController, IClienteUseCase } from "@/interfaces";
+import {
+    IClienteController,
+    IClienteGateway,
+    IClienteUseCase,
+} from "@/interfaces";
+import ClienteRepository from "@/external/repositories/ClienteRepository";
+import { ClienteUseCase } from "@/usecases/cliente/ClienteUseCase";
+import { ClienteGateway } from "@/gateways/cliente";
 
 
 export default class ClienteController implements IClienteController {
     private clienteUseCase: IClienteUseCase;
-
-    constructor(clienteUseCase: any) {
-        this.clienteUseCase = clienteUseCase;
+    private clienteGateway: IClienteGateway;
+    constructor(clienteRepository: ClienteRepository) {
+        this.clienteGateway = new ClienteGateway(clienteRepository);
+        this.clienteUseCase = new ClienteUseCase(this.clienteGateway);
     }
 
     async getClienteByCpf(req: Request, res: Response) {
@@ -19,9 +27,7 @@ export default class ClienteController implements IClienteController {
         }
 
         try {
-            const cliente = await this.clienteUseCase.executeGetByCpf(
-                cpf
-            );
+            const cliente = await this.clienteUseCase.executeGetByCpf(cpf);
             return res
                 .status(200)
                 .json({ message: "Sucesso buscar cliente", cliente });

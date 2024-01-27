@@ -3,15 +3,10 @@ import ProdutoRoutes from "./produto";
 import ProdutoController from "@/controllers/ProdutoController";
 import { PrismaClient } from "@prisma/client";
 import ClienteRepository from "@/external/repositories/ClienteRepository";
-import { ClienteGateway } from "@/gateways/cliente";
-import { ClienteUseCase } from "@/usecases/cliente/ClienteUseCase";
 import ClienteController from "@/controllers/ClienteController";
 import ClienteRoutes from "./cliente";
 import PedidoRepository from "@/external/repositories/PedidoRepository";
-import { PedidoGateway } from "@/gateways/pedido";
-import PedidoUseCase from "@/usecases/pedido/PedidoUseCase";
 import ProdutosDoPedidoRepository from "@/external/repositories/ProdutosDoPedidoRepository";
-import { ProdutoDoPedidoGateway } from "@/gateways/produtosDoPedido";
 import PedidoController from "@/controllers/PedidoController";
 import PedidoRoutes from "./pedido";
 import HealthController from "@/controllers/HealthController";
@@ -43,9 +38,7 @@ export class routes {
         produtoRoutes.buildRoutes();
 
         const clienteRepository = new ClienteRepository(this.prisma);
-        const clienteGateway = new ClienteGateway(clienteRepository);
-        const clienteUseCase = new ClienteUseCase(clienteGateway);
-        const clienteController = new ClienteController(clienteUseCase);
+        const clienteController = new ClienteController(clienteRepository);
         const clienteRoutes = new ClienteRoutes(
             this.app,
             clienteController,
@@ -54,11 +47,13 @@ export class routes {
         clienteRoutes.buildRoutes();
 
         const pedidoRepository = new PedidoRepository(this.prisma);
-        const produtosDoPedidoRepository = new ProdutosDoPedidoRepository(this.prisma);
-        const pedidoGateway = new PedidoGateway(pedidoRepository);
-        const produtosDoPedidoGateway = new ProdutoDoPedidoGateway(produtosDoPedidoRepository);
-        const pedidoUseCase = new PedidoUseCase(produtosDoPedidoGateway, pedidoGateway);
-        const pedidoController = new PedidoController(pedidoUseCase);
+        const produtosDoPedidoRepository = new ProdutosDoPedidoRepository(
+            this.prisma
+        );
+        const pedidoController = new PedidoController(
+            pedidoRepository,
+            produtosDoPedidoRepository
+        );
         const pedidoRoutes = new PedidoRoutes(
             this.app,
             pedidoController,

@@ -42,7 +42,7 @@ spec:
             secretKeyRef:
               name: postgres-credentials
               key: POSTGRES_PASSWORD
-        image: localhost/restaurante-34-api:latest
+        image: restaurante-34-api:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3001

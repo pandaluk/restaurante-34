@@ -34,5 +34,6 @@ spec:
             secretKeyRef:
               name: postgres-credentials
               key: POSTGRES_PASSWORD
-        image: brunowake/restaurante34-prisma-migration
+        image: restaurante34-prisma-migration
+        imagePullPolicy: IfNotPresent
       restartPolicy: Never

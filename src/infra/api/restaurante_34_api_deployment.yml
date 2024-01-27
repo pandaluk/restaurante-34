@@ -5,7 +5,7 @@ metadata:
   labels:
     app: restaurante34apiaeployment
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: restaurante34apiaeployment
@@ -48,11 +48,11 @@ spec:
         - containerPort: 3001
         resources:
             requests:
-              cpu: "200m"
-              memory: "256Mi"
+              cpu: "50m"
+              memory: "100Mi"
             limits:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: "2500m"
+              memory: "256Mi"
         livenessProbe:
           httpGet:
             path: /api/health/

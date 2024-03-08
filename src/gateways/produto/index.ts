@@ -1,5 +1,5 @@
 
-import Produto from "@/entities/Produto";
+import { Produto } from "@/entities/Produto";
 import { IProdutoGateway, IProdutoRepository } from "@/interfaces";
 
 export class ProdutoGateway implements IProdutoGateway {
@@ -10,15 +10,7 @@ export class ProdutoGateway implements IProdutoGateway {
     }
 
     async createProdutoGateway(produtoData: Produto): Promise<Produto> {
-        try {
-            const novoCliente = await this.produtoRepository.create(
-                produtoData
-            );
-
-            return novoCliente;
-        } catch (error) {
-            throw new Error("Erro ao criar produto!");
-        }
+        return this.produtoRepository.create(produtoData);
     }
 
     async updateProdutoGateway(produtoData: Produto): Promise<Produto> {

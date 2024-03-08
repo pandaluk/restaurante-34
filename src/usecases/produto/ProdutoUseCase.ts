@@ -1,4 +1,4 @@
-import Produto from "@/entities/Produto";
+import { Produto, ProdutoImpl } from "@/entities/Produto";
 import { IProdutoUseCase, IProdutoGateway } from "@/interfaces";
 
 export class ProdutoUseCase implements IProdutoUseCase {
@@ -22,35 +22,38 @@ export class ProdutoUseCase implements IProdutoUseCase {
             throw error;
         }
     }
+    
     async executeCreation(produtoData: Produto): Promise<Produto> {
-        try {
+        const {
+            id,
+            descricao,
+            preco,
+            categoriaProdutoId,
+            produtosDoCardapio,
+            produtosDoPedido,
+            categoriaProduto,
+            createdAt,
+            updatedAt
+        } = produtoData;
 
-            const novoProduto = new Produto(
-                produtoData.id,
-                produtoData.descricao,
-                produtoData.preco,
-                produtoData.categoriaProdutoId,
-                produtoData.produtosDoCardapio,
-                produtoData.produtosDoPedido,
-                produtoData.categoriaProduto,
-                produtoData.quantidade,
-                produtoData.valor,
-                produtoData.createdAt,
-                produtoData.updatedAt
-            );
+        const novoProduto = new ProdutoImpl(
+            id,
+            descricao,
+            preco,
+            categoriaProdutoId,
+            produtosDoCardapio,
+            produtosDoPedido,
+            categoriaProduto,
+            createdAt,
+            updatedAt
+        );
 
-            const novoProdutoResponse = await this.produtoGateway.createProdutoGateway(
-              novoProduto
-            );
-
-            return novoProdutoResponse;
-        } catch (error) {
-            throw error;
-        }
+        return this.produtoGateway.createProdutoGateway(novoProduto);
     }
+
     async executeUpdate(produtoData: Produto): Promise<Produto> {
         try {
-          const novoProduto = new Produto(
+            const novoProduto = new ProdutoImpl(
                 produtoData.id,
                 produtoData.descricao,
                 produtoData.preco,
@@ -58,8 +61,6 @@ export class ProdutoUseCase implements IProdutoUseCase {
                 produtoData.produtosDoCardapio,
                 produtoData.produtosDoPedido,
                 produtoData.categoriaProduto,
-                produtoData.quantidade,
-                produtoData.valor,
                 produtoData.createdAt,
                 produtoData.updatedAt
             );

@@ -1,4 +1,4 @@
-import Produto from "@/entities/Produto";
+import { Produto } from "@/entities/Produto";
 import { IProdutoPresenter } from "@/interfaces/presenters/IProdutoPresenter";
 
 import { format } from "date-fns";
@@ -26,4 +26,26 @@ export class ProdutoPresenter implements IProdutoPresenter{
             mensagem: mensagem,
         };
     }
+
+    presenterProdutoParaRespostaHttp(message: string, success: boolean, produto: Produto): any {
+        if (success) {
+          return {
+            success: true,
+            message: message,
+            produto: {
+              id: produto.id,
+              descricao: produto.descricao,
+              preco: produto.preco,
+              categoriaProdutoId: produto.categoriaProdutoId,
+              createdAt: produto.createdAt,
+              updatedAt: produto.updatedAt
+            }
+          };
+        } else {
+          return {
+            success: false,
+            message: message
+          };
+        }
+      }
 }

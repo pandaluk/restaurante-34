@@ -4,7 +4,7 @@ import { ProdutoPresenter } from "@/presenters/produto";
 import { ProdutoUseCase } from "@/usecases/produto/ProdutoUseCase";
 import ProdutoRepository from "@/external/repositories/ProdutoRepository";
 import { ProdutoGateway } from "@/gateways/produto";
-import Produto from "@/entities/Produto";
+import { Produto } from "@/entities/Produto";
 
 export default class ProdutoController implements IProdutoController {
     private produtoUseCase: IProdutoUseCase;
@@ -33,36 +33,36 @@ export default class ProdutoController implements IProdutoController {
     }
 
     async createProduto(req: Request, res: Response) {
-        const requestBody = req.body;
-        if (!requestBody) {
-            const responseProduto =
-                this.produtoPresenter.presenterMensagemParaRespostaHttp(
-                    "Error criar produto, body vazio",
+        try {
+            const produtoData = req.body;
+
+            if (!produtoData?.descricao || !produtoData?.preco || !produtoData?.categoriaProdutoId) {
+                const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
+                    "Erro ao criar produto: campos obrigatórios ausentes",
                     false
                 );
-            return res.status(400).json(responseProduto);
-        }
+                return res.status(400).json(response);
+            }
 
-        try {
-            const produto = await this.produtoUseCase.executeCreation(
-                requestBody
+            const produto: Produto = await this.produtoUseCase.executeCreation(produtoData);
+
+            const response = this.produtoPresenter.presenterProdutoParaRespostaHttp(
+                "Produto criado com sucesso",
+                true,
+                produto
             );
 
-            const responseProduto =
-                this.produtoPresenter.presenterMensagemParaRespostaHttp(
-                    "Sucesso criar produto",
-                    true
-                );
-            return res.status(200).json({ responseProduto, produto });
+            return res.status(200).json(response);
         } catch (error: any) {
-            const responseProduto =
-                this.produtoPresenter.presenterMensagemParaRespostaHttp(
-                    error?.message,
-                    false
-                );
-            return res.status(400).json(responseProduto);
+            const errorMessage = error.message || "Erro interno ao criar produto";
+            const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
+                errorMessage,
+                false
+            );
+            return res.status(500).json(response);
         }
     }
+
 
     async updateProduto(req: Request, res: Response) {
         try {

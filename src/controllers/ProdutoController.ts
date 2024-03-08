@@ -17,18 +17,25 @@ export default class ProdutoController implements IProdutoController {
     }
 
     async getProdutosCategoria(req: Request, res: Response) {
-        const { categoriaProdutoId } = req.params;
         try {
-            const getProduto: Produto[] =
-                await this.produtoUseCase.executeGetProdutoCategoria(
-                    parseInt(categoriaProdutoId, 10)
-                );
-            const responseProduto =
-                this.produtoPresenter.getProdutosPresenter(getProduto);
+            const { categoriaProdutoId } = req.params;
 
-            return res.status(200).json(responseProduto);
+            const produtos: Produto[] = await this.produtoUseCase.executeGetProdutoCategoria(parseInt(categoriaProdutoId, 10));
+
+            const response = this.produtoPresenter.presenterProdutosParaRespostaHttp(
+                `Produtos da categoria ${categoriaProdutoId}`,
+                true,
+                produtos
+            );
+
+            return res.status(200).json(response);
         } catch (error: any) {
-            return res.status(400).json({ message: error?.message });
+            const errorMessage = error?.message || "Erro interno ao buscar os produtos";
+            const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
+                errorMessage,
+                false
+            );
+            return res.status(500).json(response);
         }
     }
 
@@ -52,9 +59,9 @@ export default class ProdutoController implements IProdutoController {
                 produto
             );
 
-            return res.status(200).json(response);
+            return res.status(201).json(response);
         } catch (error: any) {
-            const errorMessage = error.message || "Erro interno ao criar produto";
+            const errorMessage = error?.message || "Erro interno ao criar o produto";
             const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
                 errorMessage,
                 false
@@ -63,48 +70,64 @@ export default class ProdutoController implements IProdutoController {
         }
     }
 
-
     async updateProduto(req: Request, res: Response) {
         try {
-            const requestBody = req.body;
+            const produtoData = req.body;
 
-            const produto = await this.produtoUseCase.executeUpdate(
-                requestBody
-            );
-            const responseProduto =
-                this.produtoPresenter.presenterMensagemParaRespostaHttp(
-                    "Sucesso ao atualizar o produto",
-                    true
-                );
-            return res.status(200).json({ responseProduto, produto });
-        } catch (error) {
-            const mensagemAdaptada =
-                this.produtoPresenter.presenterMensagemParaRespostaHttp(
-                    "Ops, algo de errado aconteceu!",
+            if (!produtoData?.id) {
+                const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
+                    "Erro ao atualizar produto: o campo 'id' é obrigatório",
                     false
                 );
-            return res.status(400).json(mensagemAdaptada);
+                return res.status(400).json(response);
+            }
+
+            const produto: Produto = await this.produtoUseCase.executeUpdate(produtoData);
+
+            const response = this.produtoPresenter.presenterProdutoParaRespostaHttp(
+                "Produto atualizado com sucesso",
+                true,
+                produto
+            );
+
+            return res.status(200).json(response);
+        } catch (error: any) {
+            const errorMessage = error?.message || "Erro interno ao atualizar o produto";
+            const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
+                errorMessage,
+                false
+            );
+            return res.status(500).json(response);
         }
     }
 
     async deleteProduto(req: Request, res: Response) {
-        const { id } = req.params;
         try {
-            await this.produtoUseCase.executeDelete(parseInt(id, 10));
+            const { id } = req.params;
 
-            const responseProduto =
-                this.produtoPresenter.presenterMensagemParaRespostaHttp(
-                    "Sucesso ao deletar o produto",
-                    true
-                );
-            return res.status(200).json(responseProduto);
-        } catch (error: any) {
-            const responseProduto =
-                this.produtoPresenter.presenterMensagemParaRespostaHttp(
-                    error?.message,
+            if (!id) {
+                const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
+                    "Erro ao excluir produto: o parâmetro 'id' é obrigatório",
                     false
                 );
-            return res.status(400).json(responseProduto);
+                return res.status(400).json(response);
+            }
+
+            await this.produtoUseCase.executeDelete(parseInt(id, 10));
+
+            const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
+                `Produto ${id} excluido com sucesso`,
+                true
+            );
+
+            return res.status(200).json(response);
+        } catch (error: any) {
+            const errorMessage = error?.message || "Erro interno ao excluir o produto";
+            const response = this.produtoPresenter.presenterMensagemParaRespostaHttp(
+                errorMessage,
+                false
+            );
+            return res.status(500).json(response);
         }
     }
 }

@@ -22,7 +22,8 @@ class ProdutoRepository implements IProdutoRepository {
 
             return produtosConvertidos;
         } catch (error) {
-            throw error;
+            console.error("Erro localizar produtos por categoria:", error);
+            throw new Error("Erro localizar produtos por categoria.");
         }
     }
 
@@ -61,12 +62,11 @@ class ProdutoRepository implements IProdutoRepository {
             const produtoAtualizado = produtoUnknown as Produto;
 
             return produtoAtualizado;
-        } catch (error) {            
+        } catch (error) {
             console.error("Erro ao atualizar produto: ", error);
             throw new Error("Erro ao atualizar produto.");
         }
     }
-
 
     async delete(id: number): Promise<Produto> {
         try {

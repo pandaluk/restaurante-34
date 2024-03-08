@@ -14,39 +14,14 @@ export class ProdutoGateway implements IProdutoGateway {
     }
 
     async updateProdutoGateway(produtoData: Produto): Promise<Produto> {
-        try {
-            const novoCliente = await this.produtoRepository.update(
-                produtoData
-            );
-
-            return novoCliente;
-        } catch (error) {
-            throw new Error("Erro ao atualizar o produto!");
-        }
+        return this.produtoRepository.update(produtoData);
     }
 
     async deleteProdutoGateway(id: number): Promise<Produto> {
-        try {
-            const novoCliente = await this.produtoRepository.delete(id);
-            return novoCliente;
-        } catch (error) {
-            console.log("error", error);
-            throw new Error("Erro ao excluir o produto!");
-        }
+        return this.produtoRepository.delete(id);
     }
 
-    async getProdutosCategoriaGateway(
-        categoriaProdutoId: number
-    ): Promise<Produto[]> {
-        try {
-            const getCategoria = await this.produtoRepository.get(
-                categoriaProdutoId
-            );
-            return getCategoria;
-        } catch (error) {
-            throw new Error(
-                `Erro ao obter produtos da categoria ${categoriaProdutoId}`
-            );
-        }
+    async getProdutosCategoriaGateway(categoriaProdutoId: number): Promise<Produto[]> {
+        return this.produtoRepository.get(categoriaProdutoId);
     }
 }

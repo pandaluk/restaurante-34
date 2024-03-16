@@ -1,6 +1,8 @@
-import ProdutosDoPedido from "@/entities/ProdutosDoPedido";
+import { ProdutosDoPedido } from "@/entities/ProdutosDoPedido";
+
 export interface IProdutoDoPedidoGateway {
-    createProdutoDoPedidoGateway(produtosDoPedido: ProdutosDoPedido): Promise<any>;
-    deleteProdutoDoPedidoGateway(produtosDoPedido: ProdutosDoPedido): Promise<any>;
-    getProdutoDoPedidoGateway(idPedido: number): Promise<any>;
+    createProdutosDoPedido(produtosDoPedido: ProdutosDoPedido[]): Promise<any>;
+
+    deleteProdutosDoPedido(produtosDoPedido: ProdutosDoPedido[]): Promise<any>;
+    getProdutosDoPedido(idPedido: number): Promise<any>;
 }

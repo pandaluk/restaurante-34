@@ -1,25 +1,25 @@
-import { IListaProdutosDoPedido } from "@/interfaces/entities/IListaProdutosDoPedido";
+import {Produto} from "./Produto";
+import {Pedido} from "./Pedido";
+import { BaseEntity } from "./BaseEntity";
 
-class ProdutosDoPedido {
-    idPedido: number;
-    listaProdutos: IListaProdutosDoPedido[];
-
-    constructor(
-        pedidoId: number,
-        listaProdutos: IListaProdutosDoPedido[],
-    ) {
-        this.idPedido = pedidoId;
-        this.listaProdutos = listaProdutos;
-
-        this.validateProductsQuantity(listaProdutos);
-    }
-
-    validateProductsQuantity(listaProdutos: IListaProdutosDoPedido[]) {
-
-      if (listaProdutos.length <= 0) {
-        throw new Error("Lista de produtos vazia");
-      }
-    }
+interface ProdutosDoPedido extends BaseEntity{
+    id: number;
+    produtoId: number;
+    produto: Produto;
+    pedidoId: number;
+    pedido: Pedido;
+    quantidade: number;
+    valor: number;
 }
 
-export default ProdutosDoPedido;
+const validateProdutosDoPedido = (produtosDoPedido: ProdutosDoPedido): boolean => {
+    if (produtosDoPedido.quantidade <= 0) {
+        throw new Error("A quantidade deve ser maior que zero.");
+    }
+    if (produtosDoPedido.valor <= 0) {
+        throw new Error("O valor deve ser maior que zero.");
+    }
+    return true;
+};
+
+export { ProdutosDoPedido, validateProdutosDoPedido };

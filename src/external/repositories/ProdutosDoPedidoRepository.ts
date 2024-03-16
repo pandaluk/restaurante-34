@@ -1,9 +1,10 @@
 
 
+import { ProdutosDoPedido } from "@/entities/ProdutosDoPedido";
 import { IProdutosDoPedidoRepository } from "@/interfaces";
 import { IListaProdutosDoPedido } from "@/interfaces/entities/IListaProdutosDoPedido";
 
-import { PrismaClient, ProdutosDoPedido } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 class ProdutosDoPedidoRepository implements IProdutosDoPedidoRepository {
     private prismaClient: PrismaClient;
@@ -12,41 +13,40 @@ class ProdutosDoPedidoRepository implements IProdutosDoPedidoRepository {
         this.prismaClient = prismaClient;
     }    
 
-    async create(idPedido: number, produtos: IListaProdutosDoPedido[]) {
+    async create(produtosDoPedido: ProdutosDoPedido[]): Promise<any> {
         try {
-            const response =
-                await this.prismaClient.produtosDoPedido.createMany({
-                    data: produtos.map(({ produtoId, quantidade, valor }) => {
-                        return {
-                            pedidoId: idPedido,
-                            produtoId: produtoId,
-                            quantidade: quantidade,
-                            valor: valor,
-                        };
-                    }),
-                });
+            const response = await this.prismaClient.produtosDoPedido.createMany({
+                data: produtosDoPedido.map(({ pedidoId, produtoId, quantidade, valor }) => {
+                    return {
+                        pedidoId: pedidoId,
+                        produtoId: produtoId,
+                        quantidade: quantidade,
+                        valor: valor,
+                    };
+                }),
+            });
 
             return response;
         } catch (error) {
-            console.log(idPedido);
-            console.log(error);
-            throw error;
+            console.error("Erro ao adicionar produto(s) no pedido:", error);
+            throw new Error("Erro ao adicionar produto(s) no pedido.");
         }
     }
 
-    async delete(idPedido: number, produtos: IListaProdutosDoPedido[]) {
+    async delete(produtosDoPedido: ProdutosDoPedido[]) {
         try {
-            const response = produtos.map(async ({ produtoId }) => {
+            const response = produtosDoPedido.map(async ({ produtoId, pedidoId }) => {
                 await this.prismaClient.produtosDoPedido.deleteMany({
                     where: {
                         produtoId: produtoId,
-                        pedidoId: idPedido
+                        pedidoId: pedidoId
                     }
                 });
             });
             return response;
         } catch(error) {
-            throw error;
+            console.error("Erro ao remover produto(s) no pedido:", error);
+            throw new Error("Erro ao remover produto(s) no pedido.");
         }
     }
 

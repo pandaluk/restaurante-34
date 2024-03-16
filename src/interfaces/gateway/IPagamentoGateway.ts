@@ -1,4 +1,4 @@
-import { Pagamento } from "@prisma/client";
+import Pagamento from "@/entities/Pagamento";
 
 export interface IPagamentoGateway {
     createPagamentoGateway(pagamentoData: any): Promise<Pagamento>;

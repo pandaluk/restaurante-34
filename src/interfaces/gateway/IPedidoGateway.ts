@@ -1,11 +1,11 @@
-import { Pedido } from "@prisma/client";
-import * as pedidoEntity from "@/entities/Pedido";
+import { Pedido } from "@/entities/Pedido";
 
 export interface IPedidoGateway {
-    createPedidoGateway(pedido: pedidoEntity.default): Promise<Pedido>;
-    getPedidoByIdGateway(id: number): Promise<Pedido>;
-    getPedidoGateway(): Promise<Pedido[]>;
-    updatePedidoGateway(idPedido: number, statusPedido: string): Promise<Pedido>;
-    getPedidosByStatusGateway(statusPedido: string): Promise<Pedido[]>;
-    getPedidoByStatusFakeCheckoutGateway(statusPedido: string): Promise<Pedido>;
+    createPedido(pedido: Pedido): Promise<Pedido>;
+    getPedidoById(id: number): Promise<Pedido>;
+    getPedidos(): Promise<Pedido[]>;
+    getPedidosByStatus(idStatusPedido: number): Promise<Pedido[]>;
+    getPedidoByStatusFakeCheckout(statusPedido: string): Promise<Pedido[]>;
+    
+    updatePedido(idPedido: number, statusPedido: string): Promise<Pedido>;
 }

@@ -1,4 +1,4 @@
-import Pedido from "./Pedido";
+import { Pedido } from "./Pedido";
 
 class Cliente {
     pedido: Pedido[] | null;

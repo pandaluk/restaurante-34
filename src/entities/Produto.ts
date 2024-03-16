@@ -1,46 +1,31 @@
+import CategoriaProduto from "./CategoriaProduto";
+import ProdutosDoCardapio from "./ProdutosDoCardapio";
+import { ProdutosDoPedido } from "./ProdutosDoPedido";
 
-import { CategoriaProduto, ProdutosDoCardapio } from "@prisma/client";
-import { Decimal } from "@prisma/client/runtime/library";
-
-class Produto {
-  id: number;
-  descricao: string;
-  preco: Decimal;
-  categoriaProdutoId: number;
-  produtosDoCardapio: ProdutosDoCardapio[];
-  produtosDoPedido: ProdutosDoCardapio[];
-  categoriaProduto: CategoriaProduto;
-  quantidade: number;
-  valor: number;
-  createdAt: Date;
-  updatedAt: Date;
-
-  constructor(
-    id: number,
-    descricao: string,
-    preco: Decimal,
-    categoriaProdutoId: number,
-    produtosDoCardapio: ProdutosDoCardapio[],
-    produtosDoPedido: ProdutosDoCardapio[],
-    categoriaProduto: CategoriaProduto,
-    quantidade: number,
-    valor: number,
-    createdAt: Date,
-    updatedAt: Date
-  ){
-    this.id = id;
-    this.descricao = descricao;
-    this.preco = preco;
-    this.categoriaProdutoId = categoriaProdutoId;
-    this.produtosDoCardapio = produtosDoCardapio;
-    this.produtosDoPedido = produtosDoPedido;
-    this.categoriaProduto = categoriaProduto;
-    this.quantidade = quantidade;
-    this.valor = valor;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-
-  }
+interface Produto {
+    id: number;
+    produtosDoCardapio: ProdutosDoCardapio[];
+    produtosDoPedido: ProdutosDoPedido[];
+    categoriaProdutoId: number;
+    categoriaProduto: CategoriaProduto;
+    descricao: string;
+    preco: number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
-export default Produto;
+class ProdutoImpl implements Produto {
+    constructor(
+        public id: number,
+        public descricao: string,
+        public preco: number,
+        public categoriaProdutoId: number,
+        public produtosDoCardapio: ProdutosDoCardapio[],
+        public produtosDoPedido: ProdutosDoPedido[],
+        public categoriaProduto: CategoriaProduto,
+        public createdAt: Date,
+        public updatedAt: Date
+    ) {}
+}
+
+export { Produto, ProdutoImpl };

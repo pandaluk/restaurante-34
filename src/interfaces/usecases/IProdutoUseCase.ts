@@ -1,4 +1,4 @@
-import Produto from "@/entities/Produto";
+import { Produto } from "@/entities/Produto";
 
 export interface IProdutoUseCase {
     executeCreation(produtoData: Produto): Promise<Produto>;

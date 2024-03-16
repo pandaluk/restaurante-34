@@ -1,6 +1,6 @@
-import Produto from "@/entities/Produto";
+import { Produto } from "@/entities/Produto";
 
 export interface IProdutoPresenter {
-    getProdutosPresenter(produtos: Produto[]): Produto[];
-    presenterMensagemParaRespostaHttp(mensagem: string, sucesso: boolean): any;
+    presenterProdutosParaRespostaHttp(message: string, success: boolean, produtos: Produto[]): any;
+    presenterProdutoParaRespostaHttp(message: string, success: boolean, produto: Produto): any;
 }

@@ -1,4 +1,4 @@
-import { Pagamento } from "@prisma/client";
+import Pagamento from "@/entities/Pagamento";
 
 export interface IPagamentoUseCase {
     executeCreation(idPedido: number): Promise<Pagamento>;

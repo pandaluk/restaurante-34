@@ -1,10 +1,9 @@
 import { IPagamentoGateway } from "@/interfaces/gateway/IPagamentoGateway";
 import { IPagamentoUseCase } from "@/interfaces/usecases/IPagamentoUseCase";
 import { IPedidoUseCase } from "@/interfaces/usecases/IPedidoUseCase";
-import { Pagamento } from "@prisma/client";
-import { Decimal } from "@prisma/client/runtime/library";
 import PedidoUseCase from "../pedido/PedidoUseCase";
 import { IPedidoGateway, IProdutoDoPedidoGateway } from "@/interfaces";
+import Pagamento from "@/entities/Pagamento";
 
 export class PagamentoUseCase implements IPagamentoUseCase {
     private pagamentoGateway: IPagamentoGateway;
@@ -22,11 +21,11 @@ export class PagamentoUseCase implements IPagamentoUseCase {
     async executeCreation(idPedido: number): Promise<Pagamento> {
         try {
             const produtosDoPedido = await this.pedidoUseCase.executeGetProdutoDoPedido(idPedido);
-            let valorTotalPagamento = new Decimal(0);
+            let valorTotalPagamento = 0;
 
             for (const produto of produtosDoPedido) {
-                const valorProduto = new Decimal(produto.quantidade).times(produto.valor);
-                valorTotalPagamento = valorTotalPagamento.plus(valorProduto);
+                const valorProduto = produto.quantidade * produto.valor;
+                valorTotalPagamento += valorProduto;
             }
 
             const pagamentoData = {
@@ -57,7 +56,7 @@ export class PagamentoUseCase implements IPagamentoUseCase {
             throw error;
         }
     }
-    async executeGetPagamento(pagamentoId: number): Promise<{ id: number; statusPagamentoId: number; pedidoId: number; tipo: string; data: Date; valor: Decimal; createdAt: Date; updatedAt: Date; }> {
+    async executeGetPagamento(pagamentoId: number): Promise<Pagamento> {
         try {
             const pagamento = await this.pagamentoGateway.getPagamentoGateway(pagamentoId);
             return pagamento;

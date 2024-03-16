@@ -1,14 +1,11 @@
-export enum StatusPedido{
-    RECEBIDO = "Recebido",
-    EM_PREPARACAO = "Em Preparação",
-    PRONTO = "Pronto",
-    FINALIZADO = "Finalizado",
+import { Pedido } from "./Pedido";
 
+interface StatusPedido {
+    id: number;
+    pedido: Pedido[];
+    enumerador: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
-const StatusPedidoID: Record<StatusPedido, number> = {
-    [StatusPedido.RECEBIDO]: 101,
-    [StatusPedido.EM_PREPARACAO]: 102,
-    [StatusPedido.PRONTO]: 103,
-    [StatusPedido.FINALIZADO]: 104
-};
+export default StatusPedido;

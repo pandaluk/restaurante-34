@@ -1,5 +1,6 @@
-import { Usuario } from "@prisma/client";
-import Pedido from "./Pedido";
+
+import { Pedido } from "./Pedido";
+import Usuario from "./Usuario";
 
 class Cliente {
   id: number;

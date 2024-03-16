@@ -1,4 +1,4 @@
-import Produto from "@/entities/Produto";
+import { Produto } from "@/entities/Produto";
 import { IProdutoRepository } from "@/interfaces";
 import { PrismaClient } from "@prisma/client";
 
@@ -16,11 +16,17 @@ class ProdutoRepository implements IProdutoRepository {
                     categoriaProdutoId: categoriaProdutoId,
                 },
             });
-            return getResponse as Produto[];
+
+            const produtoUnknown: unknown = getResponse;
+            const produtosConvertidos = produtoUnknown as Produto[];
+
+            return produtosConvertidos;
         } catch (error) {
-            throw error;
+            console.error("Erro buscar produtos por categoria:", error);
+            throw new Error("Erro buscar produtos por categoria.");
         }
     }
+
     async create(produto: Produto): Promise<Produto> {
         try {
             const creationResponse = await this.prismaClient.produto.create({
@@ -31,14 +37,13 @@ class ProdutoRepository implements IProdutoRepository {
                 },
             });
 
-            return {
-                id: creationResponse.id,
-                categoriaProdutoId: creationResponse.categoriaProdutoId,
-                descricao: creationResponse.descricao,
-                preco: creationResponse.preco,
-            } as Produto;
+            const produtoUnknown: unknown = creationResponse;
+            const produtoConvertido = produtoUnknown as Produto;
+
+            return produtoConvertido;
         } catch (error) {
-            throw error;
+            console.error("Erro ao criar produto:", error);
+            throw new Error("Erro ao criar produto.");
         }
     }
 
@@ -53,14 +58,13 @@ class ProdutoRepository implements IProdutoRepository {
                 },
             });
 
-            return {
-                id: putResponse.id,
-                categoriaProdutoId: produto.categoriaProdutoId,
-                descricao: produto.descricao,
-                preco: produto.preco,
-            } as Produto;
+            const produtoUnknown: unknown = putResponse;
+            const produtoAtualizado = produtoUnknown as Produto;
+
+            return produtoAtualizado;
         } catch (error) {
-            throw error;
+            console.error("Erro ao atualizar produto: ", error);
+            throw new Error("Erro ao atualizar produto.");
         }
     }
 
@@ -82,9 +86,13 @@ class ProdutoRepository implements IProdutoRepository {
                 },
             });
 
-            return deleteResponse as Produto;
+            const produtoUnknown: unknown = deleteResponse;
+            const produtoAtualizado = produtoUnknown as Produto;
+
+            return produtoAtualizado;
         } catch (error) {
-            throw error;
+            console.error("Erro ao excluir produto: ", error);
+            throw new Error("Erro ao excluir produto.");
         }
     }
 }

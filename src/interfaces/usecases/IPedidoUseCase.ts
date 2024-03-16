@@ -1,17 +1,18 @@
-import Pedido from "@/entities/Pedido";
-import { IListaProdutosDoPedido } from "../entities/IListaProdutosDoPedido";
+import { Pedido } from "@/entities/Pedido";
+import { ProdutosDoPedido } from "@/entities/ProdutosDoPedido";
 
 export interface IPedidoUseCase{
-  executeCreation(pedidoData: Pedido): any;
+  executeCreation(pedidoData: Pedido): Promise<Pedido>;
+  executeGetPedidoById(idPedido: number): Promise<Pedido>;
+  executeGetPedidos(): Promise<Pedido[]>;
+  executeGetPedidosByStatus(idStatusPedido: number): Promise<Pedido[]>;
+  executeGetPedidoFakeCheckout(status: string): Promise<Pedido[]>;
+  executeAddProdutosAoPedido(produtosDoPedido: ProdutosDoPedido[]): Promise<any>;
+  
   executeDelete(idPedido: number): any;
-  executeGetPedidoById(idPedido: number): any;
-  executeGetPedidos(): any;
-  executeAddProdutoAoPedido(idPedido: number, produtos: IListaProdutosDoPedido[]): any;
   executeRemoveProdutoDoPedido(idPedido: number, idProdutos: number): any;
   executeUpdatePedidoPreparacao(idPedido: number): any;
   executeUpdatePedidoPronto(idPedido: number): any;
   executeUpdatePedidoFinalizado(idPedido: number): any;
-  executeGetPedidoByStatus(status: string): any;
-  executeGetPedidoFakeCheckout(status: string): any;
   executeGetProdutoDoPedido(idPedido: number): any;
 }

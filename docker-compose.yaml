@@ -35,6 +35,7 @@ services:
             POSTGRES_HOST: postgres
             POSTGRES_PORT: 5432
             DB_NAME: postgres
+            COGNITO_JWKS_URL: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_2iqIrXWTh/.well-known/jwks.json
         volumes:
             - pg_data:/var/lib/postgresql/data
         networks:

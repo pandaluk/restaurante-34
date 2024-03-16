@@ -117,7 +117,7 @@
             },
             "put": {
                 "tags": ["Produto"],
-                "summary": "Edit Produto in system",
+                "summary": "Altera o produto",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -186,6 +186,59 @@
                 }
             }
         },
+        "/pedido": {
+            "post": {
+                "tags": ["Pedido"],
+                "summary": "Cria um novo pedido",
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "Objeto de Pedido",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/PedidoInput"
+                            }
+                        }
+                    },
+                    "produces": ["application/json"]
+                }
+            }
+        },
+        "/pedido/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID do pedido que deseja buscar",
+                    "type": "string",
+                    "default": 1
+                }
+            ],
+            "get": {
+                "tags": ["Pedido"],
+                "summary": "Busca Pedido pelo ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Failed. Cat not found."
+                }
+            }
+        },
         "/pedidos": {
             "get": {
                 "tags": ["Pedido"],
@@ -200,7 +253,31 @@
                 }
             }
         },
-        "/pedido/status/fakecheckout/{prefixoStatusPedido}": {
+        "/pedido/status/{idStatusPedido}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "idStatusPedido",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id do status do pedido. Status disponíveis para busca: 1=Recebido, 2=Em preparação, 3=Pronto, 4=Finalizado",
+                        "type": "number",
+                        "default": 1
+                    }
+                ],
+                "tags": ["Pedido"],
+                "summary": "Busca os pedidos pelo status desejado",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
+                    }
+                }
+            }
+        },
+        "/pedido/status/fakeCheckout/{prefixoStatusPedido}": {
             "get": {
                 "parameters": [
                     {
@@ -228,15 +305,15 @@
             "post": {
                 "parameters": [
                     {
-                        "name": "idCliente",
+                        "name": "idPedido",
                         "in": "path",
                         "required": true,
-                        "description": "ID do pedido que deseja inserir os produtos",
+                        "description": "ID do pedido que irá inserir os produtos",
                         "type": "string"
                     }
                 ],
                 "tags": ["Pedido"],
-                "summary": "Insere produtos no pedido desejado",
+                "summary": "Insere produtos no pedido",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -258,30 +335,7 @@
                     "produces": ["application/json"]
                 }
             }
-        },
-        "/pedido/status/{statusPedido}": {
-            "get": {
-                "parameters": [
-                    {
-                        "name": "statusPedido",
-                        "in": "path",
-                        "required": true,
-                        "description": "Status do pedido que deseja buscar",
-                        "type": "string"
-                    }
-                ],
-                "tags": ["Pedido"],
-                "summary": "Busca os pedidos pelo status desejado",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Pedido"
-                        }
-                    }
-                }
-            }
-        },
+        },        
         "/pedido/{id}/alterar-status": {
             "patch": {
                 "parameters": [
@@ -511,6 +565,15 @@
                 }
             }
         },
+        "PedidoInput": {
+            "type": "object",
+            "properties": {
+                "clienteId": {
+                    "type": "integer",
+                    "default": 1
+                }
+            }
+        },
         "StatusPedidoInput": {
             "type": "object",
             "properties": {
@@ -558,7 +621,7 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "id": {
+                            "produtoId": {
                                 "type": "integer",
                                 "default": 3
                             },

@@ -1,4 +1,4 @@
-import { Usuario } from "@prisma/client";
+import Usuario from "./Usuario";
 
 class Funcionario {
     constructor(
@@ -12,3 +12,5 @@ class Funcionario {
         public updatedAt: Date,
     ) {}
 }
+
+export default Funcionario;

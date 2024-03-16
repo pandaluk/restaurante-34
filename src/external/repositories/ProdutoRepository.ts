@@ -22,8 +22,8 @@ class ProdutoRepository implements IProdutoRepository {
 
             return produtosConvertidos;
         } catch (error) {
-            console.error("Erro localizar produtos por categoria:", error);
-            throw new Error("Erro localizar produtos por categoria.");
+            console.error("Erro buscar produtos por categoria:", error);
+            throw new Error("Erro buscar produtos por categoria.");
         }
     }
 

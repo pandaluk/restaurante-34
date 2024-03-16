@@ -1,8 +1,8 @@
 import { IPedidoGateway, IPedidoUseCase, IProdutoDoPedidoGateway } from "@/interfaces";
 
-import ProdutosDoPedido from "@/entities/ProdutosDoPedido";
-import { IListaProdutosDoPedido } from "@/interfaces/entities/IListaProdutosDoPedido";
-import Pedido from "@/entities/Pedido";
+import { ProdutosDoPedido } from "@/entities/ProdutosDoPedido";
+import { Pedido } from "@/entities/Pedido";
+import { EnumStatusPedido } from "@/enums/EnumStatusPedido";
 
 class PedidoUseCase implements IPedidoUseCase {
     private produtosDoPedidoGateway: IProdutoDoPedidoGateway;
@@ -13,27 +13,39 @@ class PedidoUseCase implements IPedidoUseCase {
         pedidoGateway: IPedidoGateway
     ) {
         this.produtosDoPedidoGateway = produtosDoPedidoGateway;
-        this.pedidoGateway= pedidoGateway;
+        this.pedidoGateway = pedidoGateway;
     }
 
-    async executeCreation(clienteData: Pedido) {
-        clienteData.statusPedidoId = 1;
-        try {
-          const newPedido = new Pedido(
-                clienteData.id,
-                clienteData.statusPedidoId,
-                clienteData.clienteId,
-                clienteData.cliente,
-                clienteData.pagamento,
-                clienteData.statusPedido,
-                clienteData.produtosDoPedido
-          );
-            const response = await this.pedidoGateway.createPedidoGateway(newPedido);
+    async executeCreation(pedidoData: Pedido): Promise<Pedido> {
+        pedidoData.statusPedidoId = EnumStatusPedido.RECEBIDO.id;
+        const pedidoCriado: Pedido = await this.pedidoGateway.createPedido(pedidoData);
+        return pedidoCriado;
+    }
 
-            return response;
-        } catch (error) {
-            throw error;
-        }
+    async executeGetPedidoById(idPedido: number): Promise<Pedido> {
+        return this.pedidoGateway.getPedidoById(idPedido);        
+    }
+
+    async executeGetPedidos(): Promise<Pedido[]> {
+        const pedidos = await this.pedidoGateway.getPedidos();
+        const pedidosOrdenados: Pedido[] = this.orderPedidos(pedidos);
+        return pedidosOrdenados;
+    }
+
+    async executeGetPedidosByStatus(idStatusPedido: number): Promise<Pedido[]> {
+        return this.pedidoGateway.getPedidosByStatus(idStatusPedido);            
+    }
+
+    async executeGetPedidoFakeCheckout(status: string): Promise<Pedido[]> {
+        return this.pedidoGateway.getPedidoByStatusFakeCheckout(status);
+    }
+
+    async executeAddProdutosAoPedido(produtosDoPedido: ProdutosDoPedido[]): Promise<any> {
+        return this.produtosDoPedidoGateway.createProdutosDoPedido(produtosDoPedido);        
+    }
+
+    executeRemoveProdutoDoPedido(idPedido: number, idProdutos: number) {
+        throw new Error("Method executeRemoveProdutoAoPedido not implemented.");
     }
 
     executeDelete(id: number) {
@@ -42,7 +54,7 @@ class PedidoUseCase implements IPedidoUseCase {
 
     async executeUpdatePedidoFinalizado(idPedido: number) {
         try {
-            const response = await this.pedidoGateway.updatePedidoGateway(
+            const response = await this.pedidoGateway.updatePedido(
                 idPedido,
                 "Finalizado"
             );
@@ -55,7 +67,7 @@ class PedidoUseCase implements IPedidoUseCase {
 
     async executeUpdatePedidoPreparacao(idPedido: number) {
         try {
-            const response = await this.pedidoGateway.updatePedidoGateway(
+            const response = await this.pedidoGateway.updatePedido(
                 idPedido,
                 "Em preparação"
             );
@@ -66,64 +78,12 @@ class PedidoUseCase implements IPedidoUseCase {
         }
     }
 
-    async executeGetPedidoById(idPedido: number) {
-        try {
-            const response = await this.pedidoGateway.getPedidoByIdGateway(
-                idPedido
-            );
-
-            return response;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async executeGetPedidos() {
-        try {
-            const response = await this.pedidoGateway.getPedidoGateway();
-            const formatResponse = this.orderPedidos(response)
-            return formatResponse;
-        } catch (error) {
-            throw error;
-        }
-    }
     
-    orderPedidos(pedidos: any[]): any[]{
-        const pedidosEmPreparacao = pedidos.filter((pedido) => pedido.statusPedido.enumerador == 'Em preparação');
-        const pedidosPronto = pedidos.filter((pedido) => pedido.statusPedido.enumerador == 'Pronto');
-        const pedidosRecebido = pedidos.filter((pedido) => pedido.statusPedido.enumerador == 'Recebido');
     
-        return [...pedidosPronto, ...pedidosEmPreparacao, ...pedidosRecebido];
-    }
-
-
-    async executeGetPedidoByStatus(status: string) {
-        try {
-            const response = await this.pedidoGateway.getPedidosByStatusGateway(
-                status
-            );
-
-            return response;
-        } catch (error) {
-            throw error;
-        }
-    }
-    async executeGetPedidoFakeCheckout(status: string) {
-        try {
-            const response =
-                await this.pedidoGateway.getPedidoByStatusFakeCheckoutGateway(
-                    status
-                );
-
-            return response;
-        } catch (error) {
-            throw error;
-        }
-    }
 
     async executeUpdatePedidoPronto(idPedido: number) {
         try {
-            const response = await this.pedidoGateway.updatePedidoGateway(
+            const response = await this.pedidoGateway.updatePedido(
                 idPedido,
                 "Pronto"
             );
@@ -134,30 +94,26 @@ class PedidoUseCase implements IPedidoUseCase {
         }
     }
 
-    executeAddProdutoAoPedido(idPedido: number, produtos: IListaProdutosDoPedido[]) {
-        try {
-          const produtosDoPedido = new ProdutosDoPedido(idPedido, produtos);
-
-          const response = this.produtosDoPedidoGateway.createProdutoDoPedidoGateway(produtosDoPedido);
-
-            return response;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    executeRemoveProdutoDoPedido(idPedido: number, idProdutos: number) {
-        throw new Error("Method executeRemoveProdutoAoPedido not implemented.");
-    }
     
+
+    
+
     async executeGetProdutoDoPedido(idPedido: number) {
         try {
-            const produtosDoPedido = await this.produtosDoPedidoGateway.getProdutoDoPedidoGateway(idPedido);
+            const produtosDoPedido = await this.produtosDoPedidoGateway.getProdutosDoPedido(idPedido);
             return produtosDoPedido;
         } catch (error) {
             console.error(error);
-            throw new Error(`Erro ao buscar Produtos do Pedido ${idPedido}`);            
+            throw new Error(`Erro ao buscar Produtos do Pedido ${idPedido}`);
         }
+    }
+
+    private orderPedidos(pedidos: Pedido[]): Pedido[] {
+        const pedidosEmPreparacao = pedidos.filter((pedido) => pedido.statusPedido.id == EnumStatusPedido.EM_PREPARACAO.id);
+        const pedidosPronto = pedidos.filter((pedido) => pedido.statusPedido.id == EnumStatusPedido.PRONTO.id);
+        const pedidosRecebido = pedidos.filter((pedido) => pedido.statusPedido.id == EnumStatusPedido.RECEBIDO.id);
+
+        return [...pedidosPronto, ...pedidosEmPreparacao, ...pedidosRecebido];
     }
 }
 

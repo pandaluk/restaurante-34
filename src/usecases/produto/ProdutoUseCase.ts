@@ -9,7 +9,7 @@ export class ProdutoUseCase implements IProdutoUseCase {
     }
 
     async executeGetProdutoCategoria(categoriaProdutoId: number): Promise<Produto[]> {
-        return this.produtoGateway.getProdutosCategoriaGateway(categoriaProdutoId);
+        return this.produtoGateway.getProdutosCategoria(categoriaProdutoId);
     }
 
     async executeCreation(produtoData: Produto): Promise<Produto> {
@@ -37,7 +37,7 @@ export class ProdutoUseCase implements IProdutoUseCase {
             updatedAt
         );
 
-        return this.produtoGateway.createProdutoGateway(novoProduto);
+        return this.produtoGateway.createProduto(novoProduto);
     }
 
     async executeUpdate(produtoData: Produto): Promise<Produto> {
@@ -53,10 +53,10 @@ export class ProdutoUseCase implements IProdutoUseCase {
             produtoData.updatedAt
         );
 
-        return this.produtoGateway.updateProdutoGateway(novoProduto);
+        return this.produtoGateway.updateProduto(novoProduto);
     }
 
     async executeDelete(id: number): Promise<Produto> {
-        return this.produtoGateway.deleteProdutoGateway(id);
+        return this.produtoGateway.deleteProduto(id);
     }
 }

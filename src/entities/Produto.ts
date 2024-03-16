@@ -1,6 +1,6 @@
 import CategoriaProduto from "./CategoriaProduto";
 import ProdutosDoCardapio from "./ProdutosDoCardapio";
-import ProdutosDoPedido from "./ProdutosDoPedido";
+import { ProdutosDoPedido } from "./ProdutosDoPedido";
 
 interface Produto {
   id: number;

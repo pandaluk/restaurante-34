@@ -47,5 +47,5 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
-        sed -i 's#image: 450872441741.dkr.ecr.us-east-1.amazonaws.com/restaurant-34:latest/image: 450872441741.dkr.ecr.us-east-1.amazonaws.com/restaurant-34:${IMAGE_TAG}#' src/infra/api/restaurante_34_api_deployment.yml && \
+        sed -i "s#\(image: .*\.dkr\.ecr\.us-east-1\.amazonaws\.com/restaurant-34:\).*#\1\${IMAGE_TAG}#" src/infra/api/restaurante_34_api_deployment.yml && \
         kubectl apply -f src/infra/api/restaurante_34_api_deployment.yml

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: db-configmap
+    name: db-configmap
 data:
-  POSTGRES_DB: "postgres"
-  POSTGRES_PORT: "5432"
-  POSTGRES_HOST: "bd-svc"
-  DB_NAME: "restaurante34"
-  DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${DB_NAME}?schema=public"
+    POSTGRES_DB: "postgres"
+    POSTGRES_PORT: "5432"
+    POSTGRES_HOST: "bd-svc"
+    DB_NAME: "restaurante34"
+    DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${DB_NAME}?schema=public"

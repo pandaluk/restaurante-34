@@ -1,7 +1,7 @@
 name: Build and Deploy
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   ECR_REPOSITORY: restaurant-34

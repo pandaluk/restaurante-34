@@ -44,7 +44,7 @@ spec:
                             secretKeyRef:
                                 name: postgres-credentials
                                 key: POSTGRES_PASSWORD
-                  image: 450872441741.dkr.ecr.us-east-1.amazonaws.com/restaurant-34:1
+                  image: 450872441741.dkr.ecr.us-east-1.amazonaws.com/restaurant-34:latest
                   imagePullPolicy: IfNotPresent
                   ports:
                       - containerPort: 3001

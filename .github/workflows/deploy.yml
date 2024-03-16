@@ -3,11 +3,6 @@ on:
   push:
     branches: [ main ]
 
-env:
-  ECR_REPOSITORY: restaurant-34
-  EKS_CLUSTER: restaurant-34
-  AWS_REGION: us-east-1
-
 jobs:
   
   build:
@@ -41,16 +36,16 @@ jobs:
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
         ls
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker build -t $ECR_REGISTRY/restaurant-34:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/restaurant-34:$IMAGE_TAG
 
     - name: Update kube config
-      run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
+      run: aws eks update-kubeconfig --name restaurant-34 --region us-east-1
 
     - name: Deploy to EKS
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
-        sed -i 's/image: ${ECR_REPOSITORY}:${IMAGE_TAG}-1/image: ${ECR_REPOSITORY}:${IMAGE_TAG}/' src/infra/api/restaurante34_api_deployment.yml && \
+        sed -i 's/image: restaurant-34:latest/image: restaurant-34:${IMAGE_TAG}/' src/infra/api/restaurante34_api_deployment.yml && \
         kubectl apply -f src/infra/api/restaurante34_api_deployment.yml

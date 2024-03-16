@@ -1,4 +1,3 @@
-
 import Cliente from "@/entities/Cliente";
 import { IClienteGateway } from "@/interfaces";
 import { IClienteUseCase } from "@/interfaces/usecases/IClienteUseCase";
@@ -11,13 +10,11 @@ export class ClienteUseCase implements IClienteUseCase {
     }
 
     async executeCreation(clienteData: Cliente): Promise<Cliente> {
-
         try {
             const cliente = new Cliente(
-                clienteData.id,
-                clienteData.usuarioId,
-                clienteData.usuario,
                 clienteData.pedido,
+                null,
+                clienteData.usuario,
                 clienteData.nome,
                 clienteData.email,
                 clienteData.cpf,
@@ -28,7 +25,7 @@ export class ClienteUseCase implements IClienteUseCase {
 
             // Chame o método create do repositório para criar um novo cliente
             const novoCliente = await this.clienteGateway.createClienteGateway(
-              cliente
+                cliente
             );
 
             return novoCliente;
@@ -43,7 +40,9 @@ export class ClienteUseCase implements IClienteUseCase {
             // Aqui você pode adicionar lógica de validação ou manipulação de dados, se necessário.
 
             // Chame o método create do repositório para criar um novo cliente
-            const foundCliente = await this.clienteGateway.getClienteCPFGateway(cpf);
+            const foundCliente = await this.clienteGateway.getClienteCPFGateway(
+                cpf
+            );
 
             if (!foundCliente) {
                 throw new Error("Cliente não encontrado");

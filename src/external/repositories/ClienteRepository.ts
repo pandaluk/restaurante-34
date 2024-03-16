@@ -16,7 +16,13 @@ class ClienteRepository implements IClienteRepository {
                     nome: cliente.nome,
                     cpf: cliente.cpf,
                     email: cliente.email,
-                    usuarioId: cliente.usuarioId,
+                    usuario: {
+                        create: {
+                            tipoAcesso: "cliente",
+                            login: cliente.usuario.login,
+                            senha: cliente.usuario.senha,
+                        },
+                    },
                 },
             });
 
@@ -25,8 +31,14 @@ class ClienteRepository implements IClienteRepository {
                 nome: creationResponse.nome,
                 cpf: creationResponse.cpf,
                 email: creationResponse.email,
-
                 usuarioId: creationResponse.usuarioId,
+                usuario: {
+                    login: ``,
+                    senha: ``,
+                },
+                pedido: [],
+                createdAt: creationResponse.createdAt,
+                updatedAt: creationResponse.updatedAt,
             } as Cliente;
         } catch (error) {
             throw error;
@@ -49,8 +61,14 @@ class ClienteRepository implements IClienteRepository {
             nome: foundCliente.nome,
             cpf: foundCliente.cpf,
             email: foundCliente.email,
-
             usuarioId: foundCliente.usuarioId,
+            usuario: {
+                login: ``,
+                senha: ``,
+            },
+            pedido: [],
+            createdAt: foundCliente.createdAt,
+            updatedAt: foundCliente.updatedAt,
         } as Cliente;
     }
 
@@ -70,8 +88,14 @@ class ClienteRepository implements IClienteRepository {
             nome: foundCliente.nome,
             cpf: foundCliente.cpf,
             email: foundCliente.email,
-
             usuarioId: foundCliente.usuarioId,
+            usuario: {
+                login: ``,
+                senha: ``,
+            },
+            pedido: [],
+            createdAt: foundCliente.createdAt,
+            updatedAt: foundCliente.updatedAt,
         } as Cliente;
     }
 }

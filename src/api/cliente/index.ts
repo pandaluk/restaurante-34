@@ -1,8 +1,6 @@
-
 import { IBuildRoutes, IClienteController } from "@/interfaces";
 import JsonSchemaMiddleware from "./middlewares/jsonSchemaValidation/base/JsonSchemaMiddleware";
 import { ClientePostSchema } from "./middlewares/jsonSchemaValidation/schemas/ClienteSchema";
-
 
 class ClienteRoutes implements IBuildRoutes {
     private express: any;
@@ -35,9 +33,9 @@ class ClienteRoutes implements IBuildRoutes {
             )
             .post(
                 `${this.BASE_URL}/cliente`,
-                this.postPayloadValidator.validateSchema.bind(
-                    this.postPayloadValidator
-                ),
+                // this.postPayloadValidator.validateSchema.bind(
+                //     this.postPayloadValidator
+                // ),
                 this.clienteController.createCliente.bind(
                     this.clienteController
                 )
